@@ -10,4 +10,6 @@
         require_once "./admin.php";
     ?>
 </body>
+    <script src="orders.js"></script>
+    <script src="index.js"></script>
 </html>

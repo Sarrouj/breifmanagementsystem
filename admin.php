@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
     <div class="container">
@@ -23,61 +23,36 @@
                 </div>
             </div>
 
-            <div class="sidebar">
-                <a href="#">
+            <div class="sidebar pt-3">
+                <a href="#" class="m-0">
                     <span class="material-icons-sharp">
-                        dashboard
+                        <i class="fa-solid fa-chart-pie text-xl mb-2"></i>
                     </span>
                     <h3>Dashboard</h3>
                 </a>
                 <a href="#">
                     <span class="material-icons-sharp">
-                        person_outline
+                        <i class="fa-solid fa-user text-xl mb-2"></i>
                     </span>
-                    <h3>Users</h3>
-                </a>
-                <a href="#">
-                    <span class="material-icons-sharp">
-                        receipt_long
-                    </span>
-                    <h3>History</h3>
+                    <h3>Profil</h3>
                 </a>
                 <a href="#" class="active">
                     <span class="material-icons-sharp">
-                        insights
+                        <i class="fa-regular fa-file text-2xl mb-2"></i>
                     </span>
-                    <h3>Analytics</h3>
+                    <h3>Briefs</h3>
                 </a>
                 <a href="#">
                     <span class="material-icons-sharp">
-                        mail_outline
+                        <i class="fa-solid fa-plus text-xl mb-2"></i>
                     </span>
-                    <h3>Tickets</h3>
-                    <span class="message-count">27</span>
+                    <h3>Add Brief</h3>
                 </a>
                 <a href="#">
                     <span class="material-icons-sharp">
-                        inventory
-                    </span>
-                    <h3>Sale List</h3>
-                </a>
-                <a href="#">
-                    <span class="material-icons-sharp">
-                        report_gmailerrorred
+                        <i class="fa-solid fa-chart-simple text-xl mb-2"></i>
                     </span>
                     <h3>Reports</h3>
-                </a>
-                <a href="#">
-                    <span class="material-icons-sharp">
-                        settings
-                    </span>
-                    <h3>Settings</h3>
-                </a>
-                <a href="#">
-                    <span class="material-icons-sharp">
-                        add
-                    </span>
-                    <h3>New Login</h3>
                 </a>
                 <a href="#">
                     <span class="material-icons-sharp">
@@ -95,106 +70,127 @@
             <!-- Analyses -->
             <div class="analyse">
                 <div class="sales">
-                    <div class="status">
+                    <div class="status px-5">
                         <div class="info">
                             <h3>Total Briefs</h3>
                             <h1>65</h1>
                         </div>
-                        <!-- <div class="progresss">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="percentage">
-                                <p>+81%</p>
-                            </div>
-                        </div> -->
+                        <i class="fa-solid fa-file text-3xl pt-5"></i>
                     </div>
                 </div>
                 <div class="visits">
-                    <div class="status">
+                    <div class="status px-5">
                         <div class="info">
-                            <h3>Site Visit</h3>
-                            <h1>24,981</h1>
+                            <h3>Interns</h3>
+                            <h1>30</h1>
                         </div>
-                        <div class="progresss">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="percentage">
-                                <p>-48%</p>
-                            </div>
-                        </div>
+                        <i class="fa-solid fa-user-group text-3xl pt-5"></i>
                     </div>
                 </div>
                 <div class="searches">
-                    <div class="status">
+                    <div class="status px-5">
                         <div class="info">
-                            <h3>Searches</h3>
-                            <h1>14,147</h1>
+                            <h3>Teachers</h3>
+                            <h1>2</h1>
                         </div>
-                        <div class="progresss">
-                            <svg>
-                                <circle cx="38" cy="38" r="36"></circle>
-                            </svg>
-                            <div class="percentage">
-                                <p>+21%</p>
-                            </div>
-                        </div>
+                        <i class="fa-solid fa-file-signature text-3xl pt-5"></i>
                     </div>
                 </div>
             </div>
             <!-- End of Analyses -->
-
-            <!-- New Users Section -->
             <div class="new-users">
-                <h2>New Users</h2>
-                <div class="user-list">
-                    <div class="user">
-                        <img src="images/profile-2.jpg">
-                        <h2>Jack</h2>
-                        <p>54 Min Ago</p>
+                <h2>Briefs</h2>
+                <div class="flex gap-5 mt-5">
+                    <div class="rounded-3xl bg-white p-5 flex flex-col items-center w-3/4">
+                        <div class="pb-5 pt-2" style=" border-bottom: 1px solid #979797 !important">
+                            <h2>Brief Management System</h2>
+                        </div>
+                        <div class="flex flex-col items-center mb-5">
+                            <p class="my-5 font-semibold">It will end in :</p>
+                            <ul class='flex gap-3'>
+                                <li>
+                                    <div class="flex items-center gap-3 text-3xl text-slate-800">
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">02</div>  :
+                                    </div>
+                                    <p class="font-semibold ml-2">Days</p>
+                                </li>
+                                <li>
+                                    <div class="flex items-center gap-3 text-3xl text-slate-800">
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">05</div>  :
+                                    </div>
+                                    <p class="font-semibold ml-2">Hours</p>
+                                </li>
+                                <li>
+                                    <div class="flex items-center gap-3 text-3xl text-slate-800">
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">56</div>  :
+                                    </div>
+                                    <p class="font-semibold ml-4">Min</p>
+                                </li>
+                                <li class="flex flex-col items-center"> 
+                                    <div class="flex items-center gap-3 text-3xl text-slate-800">
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">26</div>  
+                                    </div>
+                                    <p class="font-semibold">Sec</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="w-full flex justify-between pt-6 " style=" border-top: 1px solid #979797 !important">
+                            <div class="flex bg-blue-400 py-3 px-5 rounded-lg cursor-pointer gap-5 items-center">
+                                <p class="text-white font-semibold">Attachement</p>
+                                <i class="fa-solid fa-arrow-down text-white"></i>
+                            </div>
+                            <div class=" py-3 px-5 rounded-lg bg-red-400 cursor-pointer">
+                                <i class="fa-solid fa-trash text-white"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="user">
-                        <img src="images/profile-3.jpg">
-                        <h2>Amir</h2>
-                        <p>3 Hours Ago</p>
-                    </div>
-                    <div class="user">
-                        <img src="images/profile-4.jpg">
-                        <h2>Ember</h2>
-                        <p>6 Hours Ago</p>
-                    </div>
-                    <div class="user">
-                        <img src="images/plus.png">
-                        <h2>More</h2>
-                        <p>New User</p>
+                    <div class="rounded-3xl bg-white p-5 flex flex-col items-center w-3/4">
+                        <div class="pb-5 pt-2" style=" border-bottom: 1px solid #979797 !important">
+                            <h2>Brief Management System</h2>
+                        </div>
+                        <div class="flex flex-col items-center mb-5">
+                            <p class="my-5 font-semibold">It will end in :</p>
+                            <ul class='flex gap-3'>
+                                <li>
+                                    <div class="flex items-center gap-3 text-3xl text-slate-800">
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">02</div>  :
+                                    </div>
+                                    <p class="font-semibold ml-2">Days</p>
+                                </li>
+                                <li>
+                                    <div class="flex items-center gap-3 text-3xl text-slate-800">
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">05</div>  :
+                                    </div>
+                                    <p class="font-semibold ml-2">Hours</p>
+                                </li>
+                                <li>
+                                    <div class="flex items-center gap-3 text-3xl text-slate-800">
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">56</div>  :
+                                    </div>
+                                    <p class="font-semibold ml-4">Min</p>
+                                </li>
+                                <li class="flex flex-col items-center"> 
+                                    <div class="flex items-center gap-3 text-3xl text-slate-800">
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">26</div>  
+                                    </div>
+                                    <p class="font-semibold">Sec</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="w-full flex justify-between pt-6 " style=" border-top: 1px solid #979797 !important">
+                            <div class="flex bg-blue-400 py-3 px-5 rounded-lg cursor-pointer gap-5 items-center">
+                                <p class="text-white font-semibold">Attachement</p>
+                                <i class="fa-solid fa-arrow-down text-white"></i>
+                            </div>
+                            <div class=" py-3 px-5 rounded-lg bg-red-400 cursor-pointer">
+                                <i class="fa-solid fa-trash text-white"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- End of New Users Section -->
-
-            <!-- Recent Orders Table -->
-            <div class="recent-orders">
-                <h2>Recent Orders</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Course Name</th>
-                            <th>Course Number</th>
-                            <th>Payment</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-                <a href="#">Show All</a>
-            </div>
-            <!-- End of Recent Orders -->
-
         </main>
         <!-- End of Main Content -->
-
         <!-- Right Section -->
         <div class="right-section">
             <div class="nav">
@@ -291,12 +287,7 @@
             </div>
 
         </div>
-
-
     </div>
-
-    <script src="orders.js"></script>
-    <script src="index.js"></script>
 </body>
-
+    <script src="https://kit.fontawesome.com/4938da1e0a.js" crossorigin="anonymous"></script>
 </html>
