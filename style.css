@@ -2,7 +2,7 @@
 
 :root{
     --color-primary: #6C9BCF;
-    --color-danger: #FF0060;
+    --color-danger: #6C9BCF;
     --color-success: #1B9C85;
     --color-warning: #F7D060;
     --color-white: #fff;
@@ -117,7 +117,7 @@ b{
     width: 95%;
     margin: 0 auto;
     gap: 4.2rem;
-    grid-template-columns: 12rem 47rem 18rem;
+    grid-template-columns: 16rem auto 20rem;
 }
 
 aside{

@@ -6,6 +6,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
 </head>
 <body>
     <div class="container">
@@ -13,8 +14,8 @@
         <aside>
             <div class="toggle">
                 <div class="logo">
-                    <img src="images/logo.png">
-                    <h2>Asmr<span class="danger">Prog</span></h2>
+                    <img src="images/logooooo.png">
+                    <h2>SOLI-<span class="danger">BRIEFS</span></h2>
                 </div>
                 <div class="close" id="close-btn">
                     <span class="material-icons-sharp">
@@ -22,7 +23,6 @@
                     </span>
                 </div>
             </div>
-
             <div class="sidebar pt-3">
                 <a href="#" class="m-0">
                     <span class="material-icons-sharp">
@@ -97,11 +97,56 @@
                     </div>
                 </div>
             </div>
+            <section class="mt-5">
+                <h2 class="mb-5">Top Interns</h2>
+                <div class="flex gap-3">
+                    <div class="flex justify-center gap-3 rounded-3xl w-1/4 cursor-pointer internCard" class="background-color : var(--color-background);">
+                        <div class="p-5">
+                            <div class="w-28 h-28 rounded-full overflow-hidden">
+                                <img src="./images/11.png" alt="intern"  style="width: 100%; height: 100%;">
+                            </div>
+                            <div class="w-full flex justify-center pt-3">
+                                <h3>Hamza Garti</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-3 rounded-3xl w-1/4 cursor-pointer internCard" class="background-color : var(--color-background);">
+                        <div class="p-5">
+                            <div class="w-28 h-28 rounded-full overflow-hidden">
+                                <img src="./images/ammmmmmina.jpg" alt="intern">
+                            </div>
+                            <div class="w-full flex justify-center pt-3">
+                                <h3>Amina Krud</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-3 rounded-3xl w-1/4 cursor-pointer internCard" class="background-color : var(--color-background);">
+                        <div class="p-5">
+                            <div class="w-28 h-28 rounded-full overflow-hidden">
+                                <img src="./images/22.png" alt="intern" style="width: 100%; height: 100%;">
+                            </div>
+                            <div class="w-full flex justify-center pt-3">
+                                <h3>M Jamoun</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-center gap-3 rounded-3xl w-1/4 cursor-pointer internCard" class="background-color : var(--color-background);">
+                        <div class="p-5">
+                            <div class="w-28 h-28 rounded-full overflow-hidden">
+                                <img src="./images/achraaaf.JPG" alt="intern">
+                            </div>
+                            <div class="w-full flex justify-center pt-3">
+                                 <h3>Achraf el Baizagh</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             <!-- End of Analyses -->
             <div class="new-users">
-                <h2>Briefs</h2>
+                <h2>Latest Briefs</h2>
                 <div class="flex gap-5 mt-5">
-                    <div class="rounded-3xl bg-white p-5 flex flex-col items-center w-3/4">
+                    <div class="rounded-3xl p-5 flex flex-col items-center w-3/4 breiffCard" class="background-color : var(--color-background);">
                         <div class="pb-5 pt-2" style=" border-bottom: 1px solid #979797 !important">
                             <h2>Brief Management System</h2>
                         </div>
@@ -144,9 +189,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="rounded-3xl bg-white p-5 flex flex-col items-center w-3/4">
+                    <div class="rounded-3xl p-5 flex flex-col items-center w-3/4 breiffCard" class="background-color : var(--color-background);">
                         <div class="pb-5 pt-2" style=" border-bottom: 1px solid #979797 !important">
-                            <h2>Brief Management System</h2>
+                            <h2>FARHA Event Project</h2>
                         </div>
                         <div class="flex flex-col items-center mb-5">
                             <p class="my-5 font-semibold">It will end in :</p>
@@ -210,11 +255,11 @@
 
                 <div class="profile">
                     <div class="info">
-                        <p>Hey, <b>Reza</b></p>
+                        <p>Hey, <b>Fatine</b></p>
                         <small class="text-muted">Admin</small>
                     </div>
                     <div class="profile-photo">
-                        <img src="images/profile-1.jpg">
+                        <img src="images/fatine.png">
                     </div>
                 </div>
 
@@ -223,9 +268,9 @@
 
             <div class="user-profile">
                 <div class="logo">
-                    <img src="images/logo.png">
-                    <h2>AsmrProg</h2>
-                    <p>Fullstack Web Developer</p>
+                    <img src="images/fatine.png">
+                    <h2>Fatin Chebab</h2>
+                    <p>Formatrice chez SOLICODE</p>
                 </div>
             </div>
 
@@ -245,7 +290,7 @@
                     </div>
                     <div class="content">
                         <div class="info">
-                            <h3>Workshop</h3>
+                            <h3>YouCan EVENT</h3>
                             <small class="text_muted">
                                 08:00 AM - 12:00 PM
                             </small>
@@ -264,7 +309,7 @@
                     </div>
                     <div class="content">
                         <div class="info">
-                            <h3>Workshop</h3>
+                            <h3>Dia Lhak El Falouse</h3>
                             <small class="text_muted">
                                 08:00 AM - 12:00 PM
                             </small>
