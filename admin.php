@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style2.css">
 </head>
 <body>
     <div class="container">
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="sidebar pt-3">
-                <a href="#" class="m-0">
+                <a href="#" class="m-0 active">
                     <span class="material-icons-sharp">
                         <i class="fa-solid fa-chart-pie text-xl mb-2"></i>
                     </span>
@@ -36,13 +36,13 @@
                     </span>
                     <h3>Profil</h3>
                 </a>
-                <a href="#" class="active">
+                <a href="#" class="">
                     <span class="material-icons-sharp">
                         <i class="fa-regular fa-file text-2xl mb-2"></i>
                     </span>
                     <h3>Briefs</h3>
                 </a>
-                <a href="#">
+                <a href="./addBrief.php">
                     <span class="material-icons-sharp">
                         <i class="fa-solid fa-plus text-xl mb-2"></i>
                     </span>

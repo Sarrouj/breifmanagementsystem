@@ -66,8 +66,8 @@ img{
 }
 
 h1{
-    font-weight: 800;
-    font-size: 1.8rem;
+    font-weight: 800 !important;
+    font-size: 1.8rem !important;
 }
 
 h2{
@@ -110,6 +110,10 @@ b{
 
 .warning{
     color: var(--color-warning);
+}
+
+.addBreifForm{
+    background-color: white;
 }
 
 .container{
