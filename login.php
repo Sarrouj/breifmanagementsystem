@@ -1,16 +1,18 @@
 <?php
 session_start();
-include "connection.php";
+include "./connection.php";
 if (isset($_POST['confirmer'])) {
-    if (!empty($_POST['email']) && !empty($_POST['motpasse'])) {
-        $idF = login_Formateur($_POST['email'], $_POST['motpasse'], $connect);
-        $idA = login_apprenant($_POST['email'], $_POST['motpasse'], $connect);
-        if ($idF != NUll) {
+    $email = $_POST['email'];
+    $password = $_POST['motpasse'];
+    if (!empty($email) && !empty($password)) {
+        $idF = login_Formateur($email , $password, $connect);
+        $idA = login_Apprenant($email , $password, $connect);
+        if($idF !== NULL) {
             $_SESSION['id_user'] = $idF;
-            header('location:admin.php');
+            header('location: admin.php');
             exit;
-        } else if ($idA !== NULL) {
-
+        }
+        if($idA !== NULL) {
             $_SESSION['id_user'] = $idA;
             header('location: apprenant.php');
             exit;
@@ -18,24 +20,20 @@ if (isset($_POST['confirmer'])) {
     } else {
         echo "<span class='error'>email or password required </span>";
     }
-
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-pVl3Zj2eP+F3zKiCuv/CbN0lcKxG/zh/7w006e9JbaoCiBz+gEN0d6e+SGl8sPmPwM2L7+FdO1Sc25vSxWgDbg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="./CSS/login.css">
     <title>Login Page</title>
-
 </head>
-
 <body>
     <div class="container">
         <div class="row mt-5">
@@ -83,7 +81,5 @@ if (isset($_POST['confirmer'])) {
         </div>
     </div>
     </div>
-
 </body>
-
 </html>

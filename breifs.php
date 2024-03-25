@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="./CSS/style.css">
+    <link rel="stylesheet" href="./CSS/style2.css">
 </head>
 <body>
     <div class="container relative flex justify-center" style="width: 95%; margin: 0 auto; position:relative; ">
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="sidebar pt-3">
-                <a href="./index.php" class="m-0">
+                <a href="./admin.php" class="m-0">
                     <span class="material-icons-sharp">
                         <i class="fa-solid fa-chart-pie text-xl mb-2"></i>
                     </span>
@@ -53,7 +53,7 @@
                     </span>
                     <h3>Reports</h3>
                 </a>
-                <a href="#">
+                <a href="./login.php">
                     <span class="material-icons-sharp">
                         logout
                     </span>
