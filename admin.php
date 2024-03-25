@@ -36,7 +36,7 @@
                     </span>
                     <h3>Profil</h3>
                 </a>
-                <a href="#" class="">
+                <a href="./breifs.php">
                     <span class="material-icons-sharp">
                         <i class="fa-regular fa-file text-2xl mb-2"></i>
                     </span>
