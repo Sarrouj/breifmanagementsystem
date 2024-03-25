@@ -2,7 +2,7 @@
 
 :root{
     --color-primary: #6C9BCF;
-    --color-danger: #FF0060;
+    --color-danger: #6C9BCF;
     --color-success: #1B9C85;
     --color-warning: #F7D060;
     --color-white: #fff;
@@ -66,8 +66,8 @@ img{
 }
 
 h1{
-    font-weight: 800;
-    font-size: 1.8rem;
+    font-weight: 800 !important;
+    font-size: 1.8rem !important;
 }
 
 h2{
@@ -112,12 +112,16 @@ b{
     color: var(--color-warning);
 }
 
+.addBreifForm{
+    background-color: white;
+}
+
 .container{
     display: grid;
     width: 95%;
     margin: 0 auto;
     gap: 4.2rem;
-    grid-template-columns: 12rem 47rem 18rem;
+    grid-template-columns: 16rem auto 20rem;
 }
 
 aside{
@@ -174,7 +178,6 @@ aside .sidebar a{
 }
 
 aside .sidebar a span{
-    font-size: 1.6rem;
     transition: all 0.3s ease;
 }
 
@@ -250,7 +253,6 @@ main .analyse > div .status{
 }
 
 main .analyse h3{
-    margin-left: 0.6rem;
     font-size: 1rem;
 }
 

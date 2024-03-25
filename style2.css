@@ -1,0 +1,17 @@
+.internCard{
+    box-shadow: var(--box-shadow) !important;
+    transition: all 0.3s ease !important;
+}
+
+.internCard:hover{
+    box-shadow: none !important;
+}
+
+.breiffCard{
+    box-shadow: var(--box-shadow) !important;
+    transition: all 0.3s ease !important;
+}
+
+.breiffCard:hover{
+    box-shadow: none !important;
+}
