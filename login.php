@@ -1,23 +1,24 @@
 <?php
 session_start();
-include('connection.php');
-
+include "connection.php";
 if (isset($_POST['confirmer'])) {
-    $email = $_POST['email'];
-    $password = $_POST['motpasse'];
-    
-    if (!empty($email) && !empty($password)) {
-        $idUt = login_apprenant($email, $password, $connect); 
-        if ($idUt !== NULL) {
-            $_SESSION['id_utilisateur'] = $idUt;
-            header('Location: apprenant.php');
-            exit; 
-        } else {
-            echo "<span class='error'>Vous n'êtes ni enseignant ni étudiant à solicode</span>";
+    if (!empty($_POST['email']) && !empty($_POST['motpasse'])) {
+        $idF = login_Formateur($_POST['email'], $_POST['motpasse'], $connect);
+        $idA = login_apprenant($_POST['email'], $_POST['motpasse'], $connect);
+        if ($idF != NUll) {
+            $_SESSION['id_user'] = $idF;
+            header('location:admin.php');
+            exit;
+        } else if ($idA !== NULL) {
+
+            $_SESSION['id_user'] = $idA;
+            header('location: apprenant.php');
+            exit;
         }
     } else {
-        echo "<span class='error'>Email ou mot de passe requis</span>";
+        echo "<span class='error'>email or password required </span>";
     }
+
 }
 ?>
 
