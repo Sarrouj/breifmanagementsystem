@@ -1,21 +1,29 @@
 <?php
-session_start();
+
 include "./connection.php";
 if (isset($_POST['confirmer'])) {
     $email = $_POST['email'];
     $password = $_POST['motpasse'];
     if (!empty($email) && !empty($password)) {
-        $idF = login_Formateur($email , $password, $connect);
+        $FormateurData = login_Formateur($email , $password, $connect);
         $idA = login_Apprenant($email , $password, $connect);
-        if($idF !== NULL) {
-            $_SESSION['id_user'] = $idF;
+        
+        if($FormateurData !== false) {
+            $_SESSION['id_user'] = $FormateurData['idFormateur'];
+            $_SESSION['logedUserInfo'] = $FormateurData; 
+            
+            // echo $email;
+            // echo $password;
+            // print_r($FormateurData);
             header('location: admin.php');
             exit;
-        }
-        if($idA !== NULL) {
-            $_SESSION['id_user'] = $idA;
-            header('location: apprenant.php');
-            exit;
+        }elseif($idA !== false) {
+            $_SESSION['id_user'] = $idA['idApprenant'];
+        
+            // header('location: apprenant.php');
+            // exit;
+        }else{
+            echo "<span class='error'>email or password is incorrect</span>";
         }
     } else {
         echo "<span class='error'>email or password required </span>";

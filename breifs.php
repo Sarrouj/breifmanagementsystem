@@ -29,7 +29,7 @@
                     </span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="#">
+                <a href="./repport.php">
                     <span class="material-icons-sharp">
                         <i class="fa-solid fa-user text-xl mb-2"></i>
                     </span>
@@ -47,7 +47,7 @@
                     </span>
                     <h3>Add Brief</h3>
                 </a>
-                <a href="#">
+                <a href="./repport.php">
                     <span class="material-icons-sharp">
                         <i class="fa-solid fa-chart-simple text-xl mb-2"></i>
                     </span>
@@ -62,7 +62,7 @@
             </div>
         </aside>
         <main class="w-1/2 mx-auto mb-10">
-           <h1 style="font-weight: 800 !important; font-size: 1.8rem !important;">Add Brief</h1>
+           <h1 style="font-weight: 800 !important; font-size: 1.8rem !important;">Latest Briefs</h1>
            <form class="rounded-3xl p-8 flex flex-col gap-5 mt-5 internCard" style="background-color: var(--color-white);">
                 <input type="text" name="title" placeholder="Title" class="py-2 px-3 text-slate-700 font-semibold rounded-lg border-2 border-blue-300 focus:outline-none">
                 <div class="flex gap-5">
@@ -78,7 +78,6 @@
                 <input type="submit" value="Search" class="cursor-pointer bg-blue-400 rounded-lg py-2 px-3 text-white font-semibold">
             </form>
             <div class="new-users">
-                <h2 style="font-weight: 600; font-size:1.4rem;">Latest Briefs</h2>
                 <div class="w-full flex flex-wrap justify-between gap-5 mt-5">
                     <div class="rounded-3xl p-5 flex flex-col items-center breiffCard" style="background-color : var(--color-background); width:48%">
                         <div class="pb-5 pt-2" style=" border-bottom: 1px solid #979797 !important">

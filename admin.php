@@ -1,3 +1,6 @@
+<?php 
+    require_once './connection.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,13 +51,13 @@
                     </span>
                     <h3>Add Brief</h3>
                 </a>
-                <a href="#">
+                <a href="./repport.php">
                     <span class="material-icons-sharp">
                         <i class="fa-solid fa-chart-simple text-xl mb-2"></i>
                     </span>
                     <h3>Reports</h3>
                 </a>
-                <a href="./login.php">
+                <a href="./logout.php">
                     <span class="material-icons-sharp">
                         logout
                     </span>
@@ -146,9 +149,14 @@
             <div class="new-users">
                 <h2>Latest Briefs</h2>
                 <div class="flex gap-5 mt-5">
-                    <div class="rounded-3xl p-5 flex flex-col items-center w-3/4 breiffCard" class="background-color : var(--color-background);">
+                    <?php 
+                        $idFormateur = $_SESSION['logedUserInfo']['idFormateur'];
+                        $latestBriefsData = latestBriefs($connect , $idFormateur);
+                        foreach($latestBriefsData as $row):
+                    ?>
+                        <div class="rounded-3xl p-5 flex flex-col items-center w-3/4 breiffCard" class="background-color : var(--color-background);">
                         <div class="pb-5 pt-2" style=" border-bottom: 1px solid #979797 !important">
-                            <h2 style="font-weight: 600; font-size:1.4rem;">Brief Management System</h2>
+                            <h2 style="font-weight: 600; font-size:1.4rem;"><?php echo $row['titre'] ?></h2>
                         </div>
                         <div class="flex flex-col items-center mb-5">
                             <p class="my-5 font-semibold">It will end in :</p>
@@ -180,58 +188,18 @@
                             </ul>
                         </div>
                         <div class="w-full flex justify-between pt-6 " style=" border-top: 1px solid #979797 !important">
-                            <div class="flex bg-blue-400 py-3 px-5 rounded-lg cursor-pointer gap-5 items-center">
+                            <a class="flex bg-blue-400 py-3 px-5 rounded-lg cursor-pointer gap-5 items-center" >
                                 <p class="text-white font-semibold">Attachement</p>
                                 <i class="fa-solid fa-arrow-down text-white"></i>
-                            </div>
+                            </a>
                             <div class=" py-3 px-5 rounded-lg bg-red-400 cursor-pointer">
                                 <i class="fa-solid fa-trash text-white"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="rounded-3xl p-5 flex flex-col items-center w-3/4 breiffCard" class="background-color : var(--color-background);">
-                        <div class="pb-5 pt-2" style=" border-bottom: 1px solid #979797 !important">
-                            <h2 style="font-weight: 600; font-size:1.4rem;">FARHA Event Project</h2>
-                        </div>
-                        <div class="flex flex-col items-center mb-5">
-                            <p class="my-5 font-semibold">It will end in :</p>
-                            <ul class='flex gap-3'>
-                                <li>
-                                    <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">02</div>  :
-                                    </div>
-                                    <p class="font-semibold ml-2">Days</p>
-                                </li>
-                                <li>
-                                    <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">05</div>  :
-                                    </div>
-                                    <p class="font-semibold ml-2">Hours</p>
-                                </li>
-                                <li>
-                                    <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">56</div>  :
-                                    </div>
-                                    <p class="font-semibold ml-4">Min</p>
-                                </li>
-                                <li class="flex flex-col items-center"> 
-                                    <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">26</div>  
-                                    </div>
-                                    <p class="font-semibold">Sec</p>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="w-full flex justify-between pt-6 " style=" border-top: 1px solid #979797 !important">
-                            <div class="flex bg-blue-400 py-3 px-5 rounded-lg cursor-pointer gap-5 items-center">
-                                <p class="text-white font-semibold">Attachement</p>
-                                <i class="fa-solid fa-arrow-down text-white"></i>
-                            </div>
-                            <div class=" py-3 px-5 rounded-lg bg-red-400 cursor-pointer">
-                                <i class="fa-solid fa-trash text-white"></i>
-                            </div>
-                        </div>
-                    </div>
+                    <?php 
+                        endforeach;
+                    ?>
                 </div>
             </div>
         </main>
@@ -254,21 +222,33 @@
                 </div>
                 <div class="profile">
                     <div class="info">
-                        <p>Hey, <b>Fatine</b></p>
+                    <?php
+                        $userInfo = isset($_SESSION['logedUserInfo']) ? $_SESSION['logedUserInfo'] : NULL;
+                        if($userInfo):
+                    ?>
+                        <p>Hey, <b><?php echo $userInfo['prenom'] ?></b></p>
+                    <?php 
+                        endif;
+                    ?>
                         <small class="text-muted">Admin</small>
                     </div>
                     <div class="profile-photo">
                         <img src="images/fatine.png">
                     </div>
                 </div>
-
             </div>
             <!-- End of Nav -->
-
             <div class="user-profile">
                 <div class="logo">
                     <img src="images/fatine.png">
-                    <h2 style="font-weight: 600; font-size:1.4rem;">Fatin Chebab</h2>
+                    <?php
+                        $userInfo = isset($_SESSION['logedUserInfo']) ? $_SESSION['logedUserInfo'] : NULL;
+                        if($userInfo):
+                    ?>
+                     <h2 style="font-weight: 600; font-size:1.4rem;"><?php echo $userInfo['nom'].' '.$userInfo['prenom'] ?></h2>
+                    <?php 
+                        endif;
+                    ?>
                     <p>Formatrice chez SOLICODE</p>
                 </div>
             </div>

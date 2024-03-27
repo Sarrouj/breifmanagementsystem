@@ -1,4 +1,5 @@
 <?php
+session_start();
 $dbname = "gestionbriefs";
 $user = "root";
 $pass = "";
@@ -12,15 +13,16 @@ try {
 }
 //les fonctions 
 function login_Apprenant($email, $password, $pdo){
-    $stmLoginApprenant = $pdo->prepare("SELECT* FROM apprenant WHERE email=:email and motPass=:pw");
+    $stmLoginApprenant = $pdo->prepare("SELECT * FROM apprenant WHERE email=:email and motPass=:pw");
     $stmLoginApprenant->bindParam(':email', $email);
     $stmLoginApprenant->bindParam(':pw', $password);
     $stmLoginApprenant->execute();
     $apprenant = $stmLoginApprenant->fetch(PDO::FETCH_ASSOC);
-    if ($apprenant)
-        return $apprenant['idApprenant'];
-    else
+    if ($apprenant){
+        return $apprenant;
+    }else{
         return false;
+    }
 }
 
 function login_Formateur($email, $pw, $pdo){
@@ -29,9 +31,20 @@ function login_Formateur($email, $pw, $pdo){
     $stmLoginFormateur->bindParam(':pw', $pw);
     $stmLoginFormateur->execute();
     $data = $stmLoginFormateur->fetch(PDO::FETCH_ASSOC);
-    print_r($data);
     if ($data)
-        return $data['idFormateur'];
+        return $data;
     else
-        return false;;
+        return false;
+}
+
+function latestBriefs($pdo , $idFormateur){
+    $latestBriefs = $pdo->prepare("SELECT * FROM brief WHERE idFormateur = :idFormateur ORDER BY idBrief DESC LIMIT 2");
+    $latestBriefs->bindParam(':idFormateur', $idFormateur);
+
+    $latestBriefs->execute();
+    $latestBriefsData = $latestBriefs->fetchAll(PDO::FETCH_ASSOC);
+    if ($latestBriefsData)
+        return $latestBriefsData;
+    else
+        return false;
 }
