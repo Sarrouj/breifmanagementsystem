@@ -48,3 +48,17 @@ function latestBriefs($pdo , $idFormateur){
     else
         return false;
 }
+function add_Skill($DB, $id_brief, $id_skill)
+{ try{
+    $add_skills = "INSERT INTO concerne ( idBrief , idc)
+    VALUES (:id_brief , :id_skill ) ";
+    $stat_add_s_brief = $DB->prepare($add_skills);
+    $stat_add_s_brief->bindParam(':id_brief', $id_brief);
+    $stat_add_s_brief->bindParam(':id_skill', $id_skill);
+
+    $stat_add_s_brief->execute();
+    echo 'hiii guys';
+    } catch (PDOException $e) {
+        echo "Error inserting into concerne table: " . $e->getMessage();
+    }
+}

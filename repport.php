@@ -64,94 +64,45 @@
         </aside>
         <main class="w-1/2 mx-auto mb-10">
            <h1 style="font-weight: 800 !important; font-size: 1.8rem !important;">Repport</h1>
-           <form class="rounded-3xl p-8 flex flex-col gap-5 mt-5 internCard" style="background-color: var(--color-white);">
-                <input type="text" name="title" placeholder="Title" class="py-2 px-3 text-slate-700 font-semibold rounded-lg border-2 border-blue-300 focus:outline-none">
-                <div class="flex gap-5">
-                    <div class="flex justify-between py-2 px-3 rounded-lg border-2 border-blue-300 w-2/4 bg-white">
-                        <label for="endDate" class="border-r-2 border-blue-300 pr-5 pl-2 text-slate-700 font-semibold">From</label>
-                        <input type="date" name="endDate" class="focus:outline-none text-slate-700 font-semibold bg-white">
-                    </div>
-                    <div class="flex justify-between py-2 px-3 rounded-lg border-2 border-blue-300 w-2/4 bg-white">
-                        <label for="endDate" class="border-r-2 border-blue-300 pr-5 pl-2 text-slate-700 font-semibold">To</label>
-                        <input type="date" name="endDate" class="focus:outline-none text-slate-700 font-semibold bg-white">
-                    </div>
-                </div>
-                <input type="submit" value="Search" class="cursor-pointer bg-blue-400 rounded-lg py-2 px-3 text-white font-semibold">
+           <form class="rounded-3xl p-8 flex gap-5 mt-5 internCard" style="background-color: var(--color-white);">
+                <select name="search" id="search" class="py-2 px-3 text-slate-700 font-semibold rounded-lg border-2 border-blue-300 focus:outline-none w-8/12">
+                    <option value="">Farha Event MarketPlace</option>
+                    <option value="">Breifs Management System</option>
+                </select>
+                <input type="submit" value="Search" class="cursor-pointer bg-blue-400 rounded-lg py-2 px-3 text-white font-semibold w-4/12">
             </form>
             <div class="p-5 mt-5 bg-white rounded-3xl">
                 <div class="overflow-auto rounded-lg">
                     <table class="table-auto w-full">
                         <thead>
                             <tr class="text-left bg-blue-300">
-                                <th class="p-2">Name</th>
-                                <th class="p-2">Last Name</th>
+                                <th class="p-2">Full Name</th>
                                 <th class="p-2">Group</th>
                                 <th class="p-2">Brief</th>
+                                <th class="p-2">URL</th>
                                 <th class="p-2">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="p-2">John</td>
-                                <td class="p-2">Sarrouj</td>
+                                <td class="p-2">John Sarrouj</td>
                                 <td class="p-2">WB-101</td>
                                 <td class="p-2">Management System</td>
+                                <td class="p-2">......</td>
                                 <td class="p-2 font-semibold inProgress">In Progress</td>
                             </tr>
                             <tr>
-                                <td class="p-2">John</td>
-                                <td class="p-2">Sarrouj</td>
+                                <td class="p-2">John Sarrouj</td>
                                 <td class="p-2">WB-101</td>
                                 <td class="p-2">Management System</td>
+                                <td class="p-2">......</td>
                                 <td class="p-2 font-semibold todo">To Do</td>
                             </tr>
                             <tr>
-                                <td class="p-2">John</td>
-                                <td class="p-2">Sarrouj</td>
+                                <td class="p-2">John Sarrouj</td>
                                 <td class="p-2">WB-101</td>
                                 <td class="p-2">Management System</td>
-                                <td class="p-2 font-semibold done">Done</td>
-                            </tr>
-                            <tr>
-                                <td class="p-2">John</td>
-                                <td class="p-2">Sarrouj</td>
-                                <td class="p-2">WB-101</td>
-                                <td class="p-2">Management System</td>
-                                <td class="p-2 font-semibold inProgress">In Progress</td>
-                            </tr>
-                            <tr>
-                                <td class="p-2">John</td>
-                                <td class="p-2">Sarrouj</td>
-                                <td class="p-2">WB-101</td>
-                                <td class="p-2">Management System</td>
-                                <td class="p-2 font-semibold todo">To Do</td>
-                            </tr>
-                            <tr>
-                                <td class="p-2">John</td>
-                                <td class="p-2">Sarrouj</td>
-                                <td class="p-2">WB-101</td>
-                                <td class="p-2">Management System</td>
-                                <td class="p-2 font-semibold done">Done</td>
-                            </tr>
-                            <tr>
-                                <td class="p-2">John</td>
-                                <td class="p-2">Sarrouj</td>
-                                <td class="p-2">WB-101</td>
-                                <td class="p-2">Management System</td>
-                                <td class="p-2 font-semibold inProgress">In Progress</td>
-                            </tr>
-                            <tr>
-                                <td class="p-2">John</td>
-                                <td class="p-2">Sarrouj</td>
-                                <td class="p-2">WB-101</td>
-                                <td class="p-2">Management System</td>
-                                <td class="p-2 font-semibold todo">To Do</td>
-                            </tr>
-                            <tr>
-                                <td class="p-2">John</td>
-                                <td class="p-2">Sarrouj</td>
-                                <td class="p-2">WB-101</td>
-                                <td class="p-2">Management System</td>
+                                <td class="p-2">https:Management System</td>
                                 <td class="p-2 font-semibold done">Done</td>
                             </tr>
                         </tbody>
