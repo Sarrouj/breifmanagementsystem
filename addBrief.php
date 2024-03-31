@@ -4,7 +4,7 @@
     session_start();
     if (isset($_POST['addBrief']) && $_FILES['Attachement']['error'] === UPLOAD_ERR_OK) {
         // Read file contents\
-        echo ($_POST['skills']);
+
         $fileContent = file_get_contents($_FILES['Attachement']['tmp_name']);
 
         // Create Brief query
@@ -22,21 +22,28 @@
         $statement->bindParam(5, $idF);
         $statement->execute();
         $id = $connect->lastInsertId();
-        return $id;
 
-        if (isset($_POST['skills'])) {
-            foreach ($_POST['skills'] as $skill) {
-                add_Skill($connect, $id,  $skill);
+
+        // if (isset($_POST['skills'])) {
+        //     foreach ($_POST['skills'] as $skill) {
+        //         add_Skill($connect, $id,  $skill);
+        //     }
+        // }
+
+
+        if (isset($_POST['skills']) && is_array($_POST['skills'])) {
+            foreach ($_POST['skills'] as $selectedSkill) {
+                add_Skill($connect, $id, $selectedSkill);
             }
+        } else {
+            echo "No skills selected.";
         }
     }
-    //select all skills
+    
     $querySkill = "SELECT * FROM competence";
     $statment = $connect->prepare($querySkill);
     $statment->execute();
     $selectSkill = $statment->fetchAll(PDO::FETCH_ASSOC);
-
-    echo $selectSkill;
     ?>
 
 
@@ -126,22 +133,21 @@
 
                    <div class="py-2 px-3 rounded-lg border-2 border-blue-300 flex flex-col gap-3">
                        <h2 class="text-slate-700 font-semibold">Targeted skill :</h2>
-                       <form method="POST">
-                           <div class="justify-between">
-                               <?php foreach ($selectSkill as $skill) : ?>
-                                   <div>
-                                       <input type="checkbox" id="<?= $skill['idc'] ?>" name="skills[]" value=<?$skill['Intitule']?>>
-                                       <label for="<?= $skill['idc'] ?>"><?= 'C' . $skill['idc']  . ' ' . $skill['Intitule']  ?></label>
-                                   </div>
-                               <?php endforeach; ?>
-                           </div>
-
-                           <!-- Add hidden input for passing brief ID 
-                           <input type="hidden" name="idBrief" value="<?= $idBrief ?>">-->
-                           <input type="submit" value="ADD BRIEF" class="cursor-pointer bg-blue-400 rounded-lg py-2 px-3 text-white font-semibold" name="addBrief">
-                       </form>
-
+                       <!-- <form method="POST"> -->
+                       <div class="justify-between">
+                           <?php foreach ($selectSkill as $skill) : ?>
+                               <div>
+                                   <input type="checkbox" id="<?= $skill['idc'] ?>" name="skills[]" value="<?= $skill['idc'] ?>">
+                                   <label for="<?= $skill['idc'] ?>"><?= 'C' . $skill['idc']  . ' ' . $skill['Intitule']  ?></label>
+                               </div>
+                           <?php endforeach; ?>
+                       </div>
+                       <!-- </form> -->
                    </div>
+
+                   <input type="submit" value="ADD BRIEF" class="cursor-pointer bg-blue-400 rounded-lg py-2 px-3 text-white font-semibold" name="addBrief">
+
+               </form>
            </main>
            <?php
 

@@ -6,10 +6,8 @@ $pass = "";
 //partie de connection
 try {
     $connect = new PDO("mysql:host=localhost;dbname=$dbname", $user, $pass);
-    
 } catch (PDOException $ex) {
     echo $ex->getMessage();
-    
 }
 //les fonctions 
 function login_Apprenant($email, $password, $pdo)
@@ -37,15 +35,16 @@ function login_Formateur($email, $pw, $pdo)
     return $data['idFormateur'];
 }
 function add_Skill($DB, $id_brief, $id_skill)
-{ try{
-    $add_skills = "INSERT INTO concerne ( idBrief , idc)
+{
+    try {
+        echo "Ha7na machin";
+        $add_skills = "INSERT INTO concerne ( idBrief , idc)
     VALUES (:id_brief , :id_skill ) ";
-    $stat_add_s_brief = $DB->prepare($add_skills);
-    $stat_add_s_brief->bindParam(':id_brief', $id_brief);
-    $stat_add_s_brief->bindParam(':id_skill', $id_skill);
+        $stat_add_s_brief = $DB->prepare($add_skills);
+        $stat_add_s_brief->bindParam(':id_brief', $id_brief);
+        $stat_add_s_brief->bindParam(':id_skill', $id_skill);
 
-    $stat_add_s_brief->execute();
-    echo 'hiii guys';
+        $stat_add_s_brief->execute();
     } catch (PDOException $e) {
         echo "Error inserting into concerne table: " . $e->getMessage();
     }
