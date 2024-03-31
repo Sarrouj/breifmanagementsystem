@@ -7,10 +7,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="./CSS/style.css">
     <link rel="stylesheet" href="./CSS/style2.css">
+    <link rel="stylesheet" href="./CSS/report.css">
 </head>
 <body>
-    <div class="container" style="display: grid; width: 95%; margin: 0 auto; gap: 4.2rem; grid-template-columns: 16rem auto 20rem; ">
-        <aside>
+    <div class="container relative flex justify-center" style="width: 95%; margin: 0 auto; position:relative; ">
+        <aside class="fixed left-16 w-64">
             <div class="toggle">
                 <div class="logo">
                     <img src="images/logooooo.png">
@@ -35,19 +36,19 @@
                     </span>
                     <h3>Profil</h3>
                 </a>
-                <a href="./breifs.php" class="">
+                <a href="#" >
                     <span class="material-icons-sharp">
                         <i class="fa-regular fa-file text-2xl mb-2"></i>
                     </span>
                     <h3>Briefs</h3>
                 </a>
-                <a href="./addBrief.php" class="active">
+                <a href="./addBrief.php" class="">
                     <span class="material-icons-sharp">
                         <i class="fa-solid fa-plus text-xl mb-2"></i>
                     </span>
                     <h3>Add Brief</h3>
                 </a>
-                <a href="./repport.php">
+                <a href="./repport.php" class="active">
                     <span class="material-icons-sharp">
                         <i class="fa-solid fa-chart-simple text-xl mb-2"></i>
                     </span>
@@ -61,82 +62,55 @@
                 </a>
             </div>
         </aside>
-        <main>
-           <h1 style="font-weight: 800 !important; font-size: 1.8rem !important;">Add Brief</h1>
-           <form class="rounded-3xl p-8 flex flex-col gap-5 mt-5 internCard" style="background-color: var(--color-white);">
-                <input type="text" name="title" placeholder="Title" class="py-2 px-3 text-slate-700 font-semibold rounded-lg border-2 border-blue-300 focus:outline-none">
-                <div class="flex gap-5">
-                    <div class="flex justify-between py-2 px-3 rounded-lg border-2 border-blue-300 w-2/4 bg-white">
-                        <label for="endDate" class="border-r-2 border-blue-300 pr-5 pl-2 text-slate-700 font-semibold">From</label>
-                        <input type="date" name="endDate" class="focus:outline-none text-slate-700 font-semibold bg-white">
-                    </div>
-                    <div class="flex justify-between py-2 px-3 rounded-lg border-2 border-blue-300 w-2/4 bg-white">
-                        <label for="endDate" class="border-r-2 border-blue-300 pr-5 pl-2 text-slate-700 font-semibold">To</label>
-                        <input type="date" name="endDate" class="focus:outline-none text-slate-700 font-semibold bg-white">
-                    </div>
-                </div>
-                <div class="flex justify-between py-2 px-3 rounded-lg border-2 border-blue-300 bg-white">
-                    <label for="attachement" class="border-r-2 border-blue-300 pr-5 pl-2 text-slate-700 font-semibold">Upload Brief Attachement</label>
-                    <input
-                    type="file"
-                    id="Attachement"
-                    name="Attachement"
-                    accept=".pdf" 
-                    />
-                </div>
-                <div class="py-2 px-3 rounded-lg border-2 border-blue-300 flex flex-col gap-3">
-                    <h2 class="text-slate-700 font-semibold">Targeted skill :</h2>
-                    <div class="flex justify-between">
-                        <div>
-                            <input type="checkbox" name="front-end" id="front-end">
-                            <label for="frontend">HTML & CSS</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="front-end" id="front-end">
-                            <label for="front-end">FIGMA</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="front-end" id="front-end">
-                            <label for="front-end">Design Thinking</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="front-end" id="front-end">
-                            <label for="front-end">JavaScript</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="front-end" id="front-end">
-                            <label for="front-end">PHP</label>
-                        </div>
-                    </div>
-                    <div class="flex justify-between">
-                        <div>
-                            <input type="checkbox" name="front-end" id="front-end">
-                            <label for="frontend">CSS Frameworks</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="front-end" id="front-end">
-                            <label for="front-end">MYSQL & SQL</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="front-end" id="front-end">
-                            <label for="front-end">TypeScript</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="front-end" id="front-end">
-                            <label for="front-end">React Ecosystem</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="front-end" id="front-end">
-                            <label for="front-end">Design Pattern</label>
-                        </div>
-                    </div>
-                </div>
-                <input type="submit" value="ADD BRIEF" class="cursor-pointer bg-blue-400 rounded-lg py-2 px-3 text-white font-semibold">
+        <main class="w-1/2 mx-auto mb-10">
+           <h1 style="font-weight: 800 !important; font-size: 1.8rem !important;">Repport</h1>
+           <form class="rounded-3xl p-8 flex gap-5 mt-5 internCard" style="background-color: var(--color-white);">
+                <select name="search" id="search" class="py-2 px-3 text-slate-700 font-semibold rounded-lg border-2 border-blue-300 focus:outline-none w-8/12">
+                    <option value="">Farha Event MarketPlace</option>
+                    <option value="">Breifs Management System</option>
+                </select>
+                <input type="submit" value="Search" class="cursor-pointer bg-blue-400 rounded-lg py-2 px-3 text-white font-semibold w-4/12">
             </form>
+            <div class="p-5 mt-5 bg-white rounded-3xl">
+                <div class="overflow-auto rounded-lg">
+                    <table class="table-auto w-full">
+                        <thead>
+                            <tr class="text-left bg-blue-300">
+                                <th class="p-2">Full Name</th>
+                                <th class="p-2">Group</th>
+                                <th class="p-2">Brief</th>
+                                <th class="p-2">URL</th>
+                                <th class="p-2">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-2">John Sarrouj</td>
+                                <td class="p-2">WB-101</td>
+                                <td class="p-2">Management System</td>
+                                <td class="p-2">......</td>
+                                <td class="p-2 font-semibold inProgress">In Progress</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2">John Sarrouj</td>
+                                <td class="p-2">WB-101</td>
+                                <td class="p-2">Management System</td>
+                                <td class="p-2">......</td>
+                                <td class="p-2 font-semibold todo">To Do</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2">John Sarrouj</td>
+                                <td class="p-2">WB-101</td>
+                                <td class="p-2">Management System</td>
+                                <td class="p-2">https:Management System</td>
+                                <td class="p-2 font-semibold done">Done</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </main>
-        <!-- End of Main Content -->
-        <!-- Right Section -->
-        <div class="right-section">
+        <div class="right-section w-72 fixed right-16">
             <div class="nav">
                 <button id="menu-btn">
                     <span class="material-icons-sharp">
@@ -218,6 +192,7 @@
                         </span>
                     </div>
                 </div>
+
                 <div class="notification add-reminder">
                     <div>
                         <span class="material-icons-sharp">
@@ -226,7 +201,9 @@
                         <h3 style="font-weight: 500; font-size: 0.87rem;">Add Reminder</h3>
                     </div>
                 </div>
+
             </div>
+
         </div>
     </div>
 </body>

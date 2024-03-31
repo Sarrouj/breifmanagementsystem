@@ -1,21 +1,26 @@
+<?php 
+    require_once './connection.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./style2.css">
+    <link rel="stylesheet" href="./CSS/style.css">
+    <link rel="stylesheet" href="./CSS/style2.css">
 </head>
+
 <body>
-    <div class="container">
+    <div class="container"  style="display: grid; width: 95%; margin: 0 auto; gap: 4.2rem; grid-template-columns: 16rem auto 20rem; ">
         <!-- Sidebar Section -->
         <aside>
             <div class="toggle">
                 <div class="logo">
                     <img src="images/logooooo.png">
-                    <h2>SOLI-<span class="danger">BRIEFS</span></h2>
+                    <h2 style="font-weight: 600; font-size:1.4rem;">SOLI-<span class="danger">BRIEFS</span></h2>
                 </div>
                 <div class="close" id="close-btn">
                     <span class="material-icons-sharp">
@@ -24,7 +29,7 @@
                 </div>
             </div>
             <div class="sidebar pt-3">
-                <a href="#" class="m-0 active">
+                <a href="./admin.php" class="m-0 active">
                     <span class="material-icons-sharp">
                         <i class="fa-solid fa-chart-pie text-xl mb-2"></i>
                     </span>
@@ -48,13 +53,13 @@
                     </span>
                     <h3>Add Brief</h3>
                 </a>
-                <a href="#">
+                <a href="./repport.php">
                     <span class="material-icons-sharp">
                         <i class="fa-solid fa-chart-simple text-xl mb-2"></i>
                     </span>
                     <h3>Reports</h3>
                 </a>
-                <a href="#">
+                <a href="./logout.php">
                     <span class="material-icons-sharp">
                         logout
                     </span>
@@ -63,17 +68,50 @@
             </div>
         </aside>
         <!-- End of Sidebar Section -->
-
+        <?php
+        session_start();
+        include("connection.php");
+        //total of treaners
+        $TotalApp = "SELECT COUNT(*) AS total_apprenant FROM apprenant;";
+        $statment = $connect->prepare($TotalApp);
+        $statment->execute();
+        $data = $statment->fetchAll(PDO::FETCH_ASSOC);
+        $totalApprenants = $data[0]['total_apprenant'];
+        //total of teatchers
+        $TotalF = "SELECT COUNT(*) AS total_formateur FROM formateur;";
+        $statment = $connect->prepare($TotalF);
+        $statment->execute();
+        $data = $statment->fetchAll(PDO::FETCH_ASSOC);
+        $totalFormateur = $data[0]['total_formateur'];
+        // total of briefs
+        $TotalB = "SELECT COUNT(*) AS total_Briefs FROM brief;";
+        $statment = $connect->prepare($TotalB);
+        $statment->execute();
+        $data = $statment->fetchAll(PDO::FETCH_ASSOC);
+        $totalBriefs = $data[0]['total_Briefs'];
+        //select Briefs
+       $selectBrief="SELECT * FROM brief";
+                           $statment = $connect->prepare($selectBrief);
+                           $statment->execute();
+                           $data = $statment->fetchAll(PDO::FETCH_ASSOC);
+       // foreach ($data as $row) {
+          //  echo "Brief ID: " . $row['idBrief'] . "<br>";
+          //  echo "Title: " . $row['titre'] . "<br>";
+            // Access other columns as needed
+       // }
+           
+        ?>
         <!-- Main Content -->
+
         <main>
-            <h1>Analytics</h1>
+            <h1 style="font-weight: 800 !important; font-size: 1.8rem !important;">Analytics</h1>
             <!-- Analyses -->
             <div class="analyse">
                 <div class="sales">
                     <div class="status px-5">
                         <div class="info">
                             <h3>Total Briefs</h3>
-                            <h1>65</h1>
+                            <?php echo "<h1>$totalBriefs</h1>" ?>
                         </div>
                         <i class="fa-solid fa-file text-3xl pt-5"></i>
                     </div>
@@ -82,7 +120,7 @@
                     <div class="status px-5">
                         <div class="info">
                             <h3>Interns</h3>
-                            <h1>30</h1>
+                            <?php echo "<h1>$totalApprenants</h1>" ?>
                         </div>
                         <i class="fa-solid fa-user-group text-3xl pt-5"></i>
                     </div>
@@ -91,19 +129,19 @@
                     <div class="status px-5">
                         <div class="info">
                             <h3>Teachers</h3>
-                            <h1>2</h1>
+                            <?php echo "<h1>$totalFormateur</h1>" ?>
                         </div>
                         <i class="fa-solid fa-file-signature text-3xl pt-5"></i>
                     </div>
                 </div>
             </div>
             <section class="mt-5">
-                <h2 class="mb-5">Top Interns</h2>
+                <h2 class="mb-5" style="font-weight: 600; font-size:1.4rem;">Top Interns</h2>
                 <div class="flex gap-3">
                     <div class="flex justify-center gap-3 rounded-3xl w-1/4 cursor-pointer internCard" class="background-color : var(--color-background);">
                         <div class="p-5">
                             <div class="w-28 h-28 rounded-full overflow-hidden">
-                                <img src="./images/11.png" alt="intern"  style="width: 100%; height: 100%;">
+                                <img src="./images/11.png" alt="intern" style="width: 100%; height: 100%;">
                             </div>
                             <div class="w-full flex justify-center pt-3">
                                 <h3>Hamza Garti</h3>
@@ -136,7 +174,8 @@
                                 <img src="./images/achraaaf.JPG" alt="intern">
                             </div>
                             <div class="w-full flex justify-center pt-3">
-                                 <h3>Achraf el Baizagh</h3>
+                                <h3>Achraf el Baizagh</h3>
+                               
                             </div>
                         </div>
                     </div>
@@ -146,44 +185,49 @@
             <div class="new-users">
                 <h2>Latest Briefs</h2>
                 <div class="flex gap-5 mt-5">
-                    <div class="rounded-3xl p-5 flex flex-col items-center w-3/4 breiffCard" class="background-color : var(--color-background);">
+                    <?php 
+                        $idFormateur = $_SESSION['logedUserInfo']['idFormateur'];
+                        $latestBriefsData = latestBriefs($connect , $idFormateur);
+                        foreach($latestBriefsData as $row):
+                    ?>
+                        <div class="rounded-3xl p-5 flex flex-col items-center w-3/4 breiffCard" class="background-color : var(--color-background);">
                         <div class="pb-5 pt-2" style=" border-bottom: 1px solid #979797 !important">
-                            <h2>Brief Management System</h2>
+                            <h2 style="font-weight: 600; font-size:1.4rem;"><?php echo $row['titre'] ?></h2>
                         </div>
                         <div class="flex flex-col items-center mb-5">
                             <p class="my-5 font-semibold">It will end in :</p>
                             <ul class='flex gap-3'>
                                 <li>
                                     <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">02</div>  :
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">02</div> :
                                     </div>
                                     <p class="font-semibold ml-2">Days</p>
                                 </li>
                                 <li>
                                     <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">05</div>  :
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">05</div> :
                                     </div>
                                     <p class="font-semibold ml-2">Hours</p>
                                 </li>
                                 <li>
                                     <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">56</div>  :
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">56</div> :
                                     </div>
                                     <p class="font-semibold ml-4">Min</p>
                                 </li>
-                                <li class="flex flex-col items-center"> 
+                                <li class="flex flex-col items-center">
                                     <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">26</div>  
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">26</div>
                                     </div>
                                     <p class="font-semibold">Sec</p>
                                 </li>
                             </ul>
                         </div>
                         <div class="w-full flex justify-between pt-6 " style=" border-top: 1px solid #979797 !important">
-                            <div class="flex bg-blue-400 py-3 px-5 rounded-lg cursor-pointer gap-5 items-center">
+                            <a class="flex bg-blue-400 py-3 px-5 rounded-lg cursor-pointer gap-5 items-center" >
                                 <p class="text-white font-semibold">Attachement</p>
                                 <i class="fa-solid fa-arrow-down text-white"></i>
-                            </div>
+                            </a>
                             <div class=" py-3 px-5 rounded-lg bg-red-400 cursor-pointer">
                                 <i class="fa-solid fa-trash text-white"></i>
                             </div>
@@ -198,25 +242,25 @@
                             <ul class='flex gap-3'>
                                 <li>
                                     <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">02</div>  :
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">02</div> :
                                     </div>
                                     <p class="font-semibold ml-2">Days</p>
                                 </li>
                                 <li>
                                     <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">05</div>  :
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">05</div> :
                                     </div>
                                     <p class="font-semibold ml-2">Hours</p>
                                 </li>
                                 <li>
                                     <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">56</div>  :
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">56</div> :
                                     </div>
                                     <p class="font-semibold ml-4">Min</p>
                                 </li>
-                                <li class="flex flex-col items-center"> 
+                                <li class="flex flex-col items-center">
                                     <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">26</div>  
+                                        <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">26</div>
                                     </div>
                                     <p class="font-semibold">Sec</p>
                                 </li>
@@ -252,36 +296,45 @@
                         dark_mode
                     </span>
                 </div>
-
                 <div class="profile">
                     <div class="info">
-                        <p>Hey, <b>Fatine</b></p>
+                    <?php
+                        $userInfo = isset($_SESSION['logedUserInfo']) ? $_SESSION['logedUserInfo'] : NULL;
+                        if($userInfo):
+                    ?>
+                        <p>Hey, <b><?php echo $userInfo['prenom'] ?></b></p>
+                    <?php 
+                        endif;
+                    ?>
                         <small class="text-muted">Admin</small>
                     </div>
                     <div class="profile-photo">
                         <img src="images/fatine.png">
                     </div>
                 </div>
-
             </div>
             <!-- End of Nav -->
-
             <div class="user-profile">
                 <div class="logo">
                     <img src="images/fatine.png">
-                    <h2>Fatin Chebab</h2>
+                    <?php
+                        $userInfo = isset($_SESSION['logedUserInfo']) ? $_SESSION['logedUserInfo'] : NULL;
+                        if($userInfo):
+                    ?>
+                     <h2 style="font-weight: 600; font-size:1.4rem;"><?php echo $userInfo['nom'].' '.$userInfo['prenom'] ?></h2>
+                    <?php 
+                        endif;
+                    ?>
                     <p>Formatrice chez SOLICODE</p>
                 </div>
             </div>
-
             <div class="reminders">
                 <div class="header">
-                    <h2>Reminders</h2>
+                    <h2 style="font-weight: 600; font-size:1.4rem;">Reminders</h2>
                     <span class="material-icons-sharp">
                         notifications_none
                     </span>
                 </div>
-
                 <div class="notification">
                     <div class="icon">
                         <span class="material-icons-sharp">
@@ -300,7 +353,6 @@
                         </span>
                     </div>
                 </div>
-
                 <div class="notification deactive">
                     <div class="icon">
                         <span class="material-icons-sharp">
@@ -319,7 +371,6 @@
                         </span>
                     </div>
                 </div>
-
                 <div class="notification add-reminder">
                     <div>
                         <span class="material-icons-sharp">
@@ -328,11 +379,10 @@
                         <h3>Add Reminder</h3>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
 </body>
-    <script src="https://kit.fontawesome.com/4938da1e0a.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/4938da1e0a.js" crossorigin="anonymous"></script>
+
 </html>
