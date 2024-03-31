@@ -37,7 +37,7 @@ function login_Formateur($email, $pw, $pdo)
 function add_Skill($DB, $id_brief, $id_skill)
 {
     try {
-        echo "Ha7na machin";
+       
         $add_skills = "INSERT INTO concerne ( idBrief , idc)
     VALUES (:id_brief , :id_skill ) ";
         $stat_add_s_brief = $DB->prepare($add_skills);
@@ -48,4 +48,16 @@ function add_Skill($DB, $id_brief, $id_skill)
     } catch (PDOException $e) {
         echo "Error inserting into concerne table: " . $e->getMessage();
     }
+}
+
+function repport($pdo)
+{
+    $stmRepport = $pdo->prepare("SELECT nom, prenom, groupe, titre, url, etat 
+    FROM apprenant 
+    INNER JOIN realise ON apprenant.idApprenant = realise.idApprenant 
+    INNER JOIN brief ON brief.idBrief = realise.idBrief");
+    $stmRepport->execute();
+    $report = $stmRepport->fetchAll(PDO::FETCH_ASSOC);
+
+    return $report;
 }

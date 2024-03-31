@@ -1,0 +1,15 @@
+table.table-auto tr:not(:last-child) {
+    border-bottom: 2px solid #d4d2d2;
+}
+
+.inProgress {
+    color: orange;
+}
+
+.todo {
+    color: red;
+}
+
+.done {
+    color: green;
+}
