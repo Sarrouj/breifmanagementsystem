@@ -1,6 +1,39 @@
-<?php 
+<?php
 session_start();
 include('connection.php');
+
+
+if (isset($_POST['search'])) {
+    if (!empty($_POST['title'])) {
+        $selectedTitle = $_POST['title'];
+        // Prepare and execute the query for searching by title
+        $statement = $connect->prepare("SELECT nom ,prenom,groupe,titre,url,etat FROM apprenant 
+                                        INNER JOIN realise ON apprenant.idApprenant = realise.idApprenant 
+                                        INNER JOIN brief ON brief.idBrief = realise.idBrief  
+                                        WHERE titre = :selected_title");
+        $statement->bindParam(":selected_title", $selectedTitle);
+        $statement->execute();
+    }
+} else {
+    
+    $statement = $connect->prepare("SELECT nom, prenom, groupe, titre, url, etat 
+    FROM apprenant 
+    INNER JOIN realise ON apprenant.idApprenant = realise.idApprenant 
+    INNER JOIN brief ON brief.idBrief = realise.idBrief");
+    $statement->execute();
+   
+}
+//Fetch the statement
+$report = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+//select briefs for options
+$stmt = $connect->prepare("SELECT titre FROM brief");
+$stmt->execute();
+$briefs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
 
 
 ?>
@@ -73,19 +106,33 @@ include('connection.php');
         </aside>
         <main class="w-1/2 mx-auto mb-10">
             <h1 style="font-weight: 800 !important; font-size: 1.8rem !important;">Repport</h1>
-            <form class="rounded-3xl p-8 flex gap-5 mt-5 internCard" style="background-color: var(--color-white);">
-                <select name="search" id="search" class="py-2 px-3 text-slate-700 font-semibold rounded-lg border-2 border-blue-300 focus:outline-none w-8/12">
-                    <option value="">Farha Event MarketPlace</option>
-                    <option value="">Breifs Management System</option>
+            <form class="rounded-3xl p-8 flex gap-5 mt-5 internCard" style="background-color: var(--color-white);" method="POST">
+                <select name="title" id="title" class="py-2 px-3 text-slate-700 font-semibold rounded-lg border-2 border-blue-300 focus:outline-none w-8/12">
+                    <?php foreach ($briefs as $brief) {
+                        echo "<option value='" . htmlspecialchars($brief['titre']) . "'>{$brief['titre']}</option>";
+                    }
+
+                    ?>
                 </select>
-                <input type="submit" value="Search" class="cursor-pointer bg-blue-400 rounded-lg py-2 px-3 text-white font-semibold w-4/12">
+
+                <input type="submit" value="Search" class="cursor-pointer bg-blue-400 rounded-lg py-2 px-3 text-white font-semibold w-4/12" name="search">
             </form>
+            <?php
+
+
+
+
+
+
+
+            ?>
             <div class="p-5 mt-5 bg-white rounded-3xl">
                 <div class="overflow-auto rounded-lg">
                     <table class="table-auto w-full">
                         <thead>
                             <tr class="text-left bg-blue-300">
-                                <th class="p-2">Full Name</th>
+                                <th class="p-2">Last Name</th>
+                                <th class="p-2">First Name</th>
                                 <th class="p-2">Group</th>
                                 <th class="p-2">Brief</th>
                                 <th class="p-2">URL</th>
@@ -93,27 +140,16 @@ include('connection.php');
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="p-2">John Sarrouj</td>
-                                <td class="p-2">WB-101</td>
-                                <td class="p-2">Management System</td>
-                                <td class="p-2">......</td>
-                                <td class="p-2 font-semibold inProgress">In Progress</td>
-                            </tr>
-                            <tr>
-                                <td class="p-2">John Sarrouj</td>
-                                <td class="p-2">WB-101</td>
-                                <td class="p-2">Management System</td>
-                                <td class="p-2">......</td>
-                                <td class="p-2 font-semibold todo">To Do</td>
-                            </tr>
-                            <tr>
-                                <td class="p-2">John Sarrouj</td>
-                                <td class="p-2">WB-101</td>
-                                <td class="p-2">Management System</td>
-                                <td class="p-2">https:Management System</td>
-                                <td class="p-2 font-semibold done">Done</td>
-                            </tr>
+                            <?php foreach ($report as $rep) : ?>
+                                <tr>
+                                    <td class="p-2"> <?php echo $rep['nom']; ?></td>
+                                    <td class="p-2"> <?php echo $rep['prenom']; ?></td>
+                                    <td class="p-2"><?php echo $rep['groupe']; ?></td>
+                                    <td class="p-2"><?php echo $rep['titre'];?></td>
+                                    <td class="p-2"><?php echo $rep['url']; ?></td>
+                                    <td class="p-2 font-semibold inProgress"><?php echo $rep['etat']; ?></td>
+                                </tr>
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                 </div>

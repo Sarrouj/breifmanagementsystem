@@ -23,23 +23,46 @@
         $statement->execute();
         $id = $connect->lastInsertId();
 
-
-        // if (isset($_POST['skills'])) {
-        //     foreach ($_POST['skills'] as $skill) {
-        //         add_Skill($connect, $id,  $skill);
-        //     }
-        // }
-
-
         if (isset($_POST['skills']) && is_array($_POST['skills'])) {
             foreach ($_POST['skills'] as $selectedSkill) {
                 add_Skill($connect, $id, $selectedSkill);
             }
         } else {
-            echo "No skills selected.";
+            echo '<p>No Skills Selected</p>';  
         }
+        $SELECT = "To Do";
+        $URL = "------";
+        $idApp = "SELECT idApprenant FROM apprenant";
+        $QueryApp = $connect->prepare($idApp);
+        $QueryApp->execute();
+        $ID = $QueryApp->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($ID as $IdApprenant) {
+            // Check if the entry already exists
+            $check_query = $connect->prepare("SELECT * FROM realise WHERE idApprenant = :ID_Apprenant AND idBrief = :ID_brief");
+            $check_query->bindParam(':ID_Apprenant', $IdApprenant['idApprenant']); 
+            $check_query->bindParam(':ID_brief', $id);
+            $check_query->execute();
+            $existing_entry = $check_query->fetch();
+           
+
+            // If the entry does not exist, insert it
+            if (!$existing_entry) {
+                $stmt_insert_Etat = $connect->prepare('INSERT INTO realise (idApprenant, idBrief, etat, url) VALUES (:ID_Apprenant, :ID_brief, :Etat, :url)');
+                $stmt_insert_Etat->bindParam(':ID_Apprenant', $IdApprenant['idApprenant']);
+                $stmt_insert_Etat->bindParam(':ID_brief', $id); 
+                $stmt_insert_Etat->bindParam(':Etat', $SELECT);
+                $stmt_insert_Etat->bindParam(':url', $URL);
+                $stmt_insert_Etat->execute();
+            } else {
+                echo "Entry already exists";
+            }
+        }
+
     }
     
+
+
     $querySkill = "SELECT * FROM competence";
     $statment = $connect->prepare($querySkill);
     $statment->execute();
@@ -92,13 +115,13 @@
                        </span>
                        <h3>Briefs</h3>
                    </a>
-                   <a href="#" class="active">
+                   <a href="./addBrief.php" class="active">
                        <span class="material-icons-sharp">
                            <i class="fa-solid fa-plus text-xl mb-2"></i>
                        </span>
                        <h3>Add Brief</h3>
                    </a>
-                   <a href="#">
+                   <a href="./repport.php">
                        <span class="material-icons-sharp">
                            <i class="fa-solid fa-chart-simple text-xl mb-2"></i>
                        </span>
@@ -115,15 +138,15 @@
            <main>
                <h1 style="font-weight: 800 !important; font-size: 1.8rem !important;">Add Brief</h1>
                <form class="rounded-3xl p-8 flex flex-col gap-5 mt-5 internCard" style="background-color: var(--color-white); " method="POST" enctype="multipart/form-data">
-                   <input type="text" name="title" placeholder="Title" class="py-2 px-3 text-slate-700 font-semibold rounded-lg border-2 border-blue-300 focus:outline-none">
+                   <input type="text" name="title" placeholder="Title" class="py-2 px-3 text-slate-700 font-semibold rounded-lg border-2 border-blue-300 focus:outline-none" required>
                    <div class="flex gap-5">
                        <div class="flex justify-between py-2 px-3 rounded-lg border-2 border-blue-300 w-2/4 bg-white">
                            <label for="endDate" class="border-r-2 border-blue-300 pr-5 pl-2 text-slate-700 font-semibold">From</label>
-                           <input type="date" name="startDate" class="focus:outline-none text-slate-700 font-semibold bg-white">
+                           <input type="date" name="startDate" class="focus:outline-none text-slate-700 font-semibold bg-white" required>
                        </div>
                        <div class="flex justify-between py-2 px-3 rounded-lg border-2 border-blue-300 w-2/4 bg-white">
                            <label for="endDate" class="border-r-2 border-blue-300 pr-5 pl-2 text-slate-700 font-semibold">To</label>
-                           <input type="date" name="endDate" class="focus:outline-none text-slate-700 font-semibold bg-white">
+                           <input type="date" name="endDate" class="focus:outline-none text-slate-700 font-semibold bg-white" required>
                        </div>
                    </div>
                    <div class="flex justify-between py-2 px-3 rounded-lg border-2 border-blue-300 bg-white">

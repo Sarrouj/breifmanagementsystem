@@ -36,8 +36,6 @@ function login_Formateur($email, $pw, $pdo)
 }
 function add_Skill($DB, $id_brief, $id_skill)
 {
-    try {
-       
         $add_skills = "INSERT INTO concerne ( idBrief , idc)
     VALUES (:id_brief , :id_skill ) ";
         $stat_add_s_brief = $DB->prepare($add_skills);
@@ -45,9 +43,7 @@ function add_Skill($DB, $id_brief, $id_skill)
         $stat_add_s_brief->bindParam(':id_skill', $id_skill);
 
         $stat_add_s_brief->execute();
-    } catch (PDOException $e) {
-        echo "Error inserting into concerne table: " . $e->getMessage();
-    }
+
 }
 
 function repport($pdo)
