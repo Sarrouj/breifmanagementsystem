@@ -59,11 +59,7 @@
                     </span>
                     <h3>Reports</h3>
                 </a>
-<<<<<<< HEAD
                 <a href="./logout.php">
-=======
-                <a href="logout.php">
->>>>>>> omaima
                     <span class="material-icons-sharp">
                         logout
                     </span>
