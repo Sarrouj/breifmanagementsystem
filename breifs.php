@@ -9,6 +9,7 @@
             $valueSearch = "%" . $_POST['title'] . "%";
             $statement->bindParam(":search_input", $valueSearch);
             $statement->execute();
+<<<<<<< HEAD
           //  $results = $statement->fetchAll(PDO::FETCH_ASSOC);
         }
      if (isset($_POST['startDate']) && isset($_POST['endDate']) && !empty($_POST['startDate']) && !empty($_POST['endDate'])) {
@@ -23,6 +24,20 @@
         
     } }
     else {
+=======
+        }
+        if (isset($_POST['startDate']) && isset($_POST['endDate']) && !empty($_POST['startDate']) && !empty($_POST['endDate'])) {
+            // Prepare and execute the query for filtering by date
+            $start_date = $_POST['startDate'];
+            $end_date = $_POST['endDate'];
+            $statement = $connect->prepare("SELECT * FROM brief WHERE idFormateur=:idFormateur AND  dateFin <= :end_date AND dateDeb>= :start_date");
+            $statement->bindParam(':idFormateur', $_SESSION['id_user']);
+            $statement->bindParam(':start_date', $start_date);
+            $statement->bindParam(':end_date', $end_date);
+            $statement->execute();
+        }
+    } else {
+>>>>>>> omaima
         // Display all briefs
         $AllBrief = "SELECT * FROM brief WHERE idFormateur=:idFormateur";
         $statement = $connect->prepare($AllBrief);
@@ -31,7 +46,11 @@
     }
 
     // Fetch the results
+<<<<<<< HEAD
    $Briefs = $statement->fetchAll(PDO::FETCH_ASSOC);
+=======
+    $Briefs = $statement->fetchAll(PDO::FETCH_ASSOC);
+>>>>>>> omaima
 
 
 
@@ -78,7 +97,11 @@
                       </span>
                       <h3>Profil</h3>
                   </a>
+<<<<<<< HEAD
                   <a href="#" class="active">
+=======
+                  <a href="./breifs.php" class="active">
+>>>>>>> omaima
                       <span class="material-icons-sharp">
                           <i class="fa-regular fa-file text-2xl mb-2"></i>
                       </span>
@@ -90,13 +113,21 @@
                       </span>
                       <h3>Add Brief</h3>
                   </a>
+<<<<<<< HEAD
                   <a href="#">
+=======
+                  <a href="./repport.php">
+>>>>>>> omaima
                       <span class="material-icons-sharp">
                           <i class="fa-solid fa-chart-simple text-xl mb-2"></i>
                       </span>
                       <h3>Reports</h3>
                   </a>
+<<<<<<< HEAD
                   <a href="#">
+=======
+                  <a href="./logout">
+>>>>>>> omaima
                       <span class="material-icons-sharp">
                           logout
                       </span>

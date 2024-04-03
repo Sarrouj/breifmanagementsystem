@@ -59,7 +59,11 @@
                     </span>
                     <h3>Reports</h3>
                 </a>
+<<<<<<< HEAD
                 <a href="./logout.php">
+=======
+                <a href="logout.php">
+>>>>>>> omaima
                     <span class="material-icons-sharp">
                         logout
                     </span>
@@ -84,22 +88,17 @@
         $data = $statment->fetchAll(PDO::FETCH_ASSOC);
         $totalFormateur = $data[0]['total_formateur'];
         // total of briefs
-        $TotalB = "SELECT COUNT(*) AS total_Briefs FROM brief;";
+        $TotalB = "SELECT COUNT(*) AS total_Briefs FROM brief WHERE idFormateur =:idF";
         $statment = $connect->prepare($TotalB);
+        $statment->bindParam(":idF", $_SESSION['id_user']);
         $statment->execute();
         $data = $statment->fetchAll(PDO::FETCH_ASSOC);
         $totalBriefs = $data[0]['total_Briefs'];
         //select Briefs
-       $selectBrief="SELECT * FROM brief";
-                           $statment = $connect->prepare($selectBrief);
-                           $statment->execute();
-                           $data = $statment->fetchAll(PDO::FETCH_ASSOC);
-       // foreach ($data as $row) {
-          //  echo "Brief ID: " . $row['idBrief'] . "<br>";
-          //  echo "Title: " . $row['titre'] . "<br>";
-            // Access other columns as needed
-       // }
-           
+        $selectBrief = "SELECT * FROM brief";
+        $statment = $connect->prepare($selectBrief);
+        $statment->execute();
+        $data = $statment->fetchAll(PDO::FETCH_ASSOC);
         ?>
         <!-- Main Content -->
 
@@ -175,7 +174,7 @@
                             </div>
                             <div class="w-full flex justify-center pt-3">
                                 <h3>Achraf el Baizagh</h3>
-                               
+
                             </div>
                         </div>
                     </div>

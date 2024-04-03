@@ -7,7 +7,6 @@ $pass = "";
 //partie de connection
 try {
     $connect = new PDO("mysql:host=localhost;dbname=$dbname", $user, $pass);
-    
 } catch (PDOException $ex) {
     echo $ex->getMessage();
 }
@@ -49,16 +48,25 @@ function latestBriefs($pdo , $idFormateur){
         return false;
 }
 function add_Skill($DB, $id_brief, $id_skill)
-{ try{
-    $add_skills = "INSERT INTO concerne ( idBrief , idc)
+{
+        $add_skills = "INSERT INTO concerne ( idBrief , idc)
     VALUES (:id_brief , :id_skill ) ";
-    $stat_add_s_brief = $DB->prepare($add_skills);
-    $stat_add_s_brief->bindParam(':id_brief', $id_brief);
-    $stat_add_s_brief->bindParam(':id_skill', $id_skill);
+        $stat_add_s_brief = $DB->prepare($add_skills);
+        $stat_add_s_brief->bindParam(':id_brief', $id_brief);
+        $stat_add_s_brief->bindParam(':id_skill', $id_skill);
 
-    $stat_add_s_brief->execute();
-    echo 'hiii guys';
-    } catch (PDOException $e) {
-        echo "Error inserting into concerne table: " . $e->getMessage();
-    }
+        $stat_add_s_brief->execute();
+
+}
+
+function repport($pdo)
+{
+    $stmRepport = $pdo->prepare("SELECT nom, prenom, groupe, titre, url, etat 
+    FROM apprenant 
+    INNER JOIN realise ON apprenant.idApprenant = realise.idApprenant 
+    INNER JOIN brief ON brief.idBrief = realise.idBrief");
+    $stmRepport->execute();
+    $report = $stmRepport->fetchAll(PDO::FETCH_ASSOC);
+
+    return $report;
 }
