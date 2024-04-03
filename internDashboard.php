@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="./CSS/style2.css">
         <title>Management System</title>
     </head>
-
     <body>
         <div class="container"  style="display: grid; width: 95%; margin: 0 auto; gap: 4.2rem; grid-template-columns: 16rem auto 20rem; ">
             <!-- Sidebar Section -->
@@ -29,35 +28,17 @@
                     </div>
                 </div>
                 <div class="sidebar pt-3">
-                    <a href="./admin.php" class="m-0 active">
+                    <a href="./internDashboard.php" class="m-0 active">
                         <span class="material-icons-sharp">
                             <i class="fa-solid fa-chart-pie text-xl mb-2"></i>
                         </span>
                         <h3>Dashboard</h3>
                     </a>
-                    <a href="./teacherProfile.php">
-                        <span class="material-icons-sharp">
-                            <i class="fa-solid fa-user text-xl mb-2"></i>
-                        </span>
-                        <h3>Profil</h3>
-                    </a>
-                    <a href="./breifs.php">
+                    <a href="./InternBriefs.php">
                         <span class="material-icons-sharp">
                             <i class="fa-regular fa-file text-2xl mb-2"></i>
                         </span>
                         <h3>Briefs</h3>
-                    </a>
-                    <a href="./addBrief.php">
-                        <span class="material-icons-sharp">
-                            <i class="fa-solid fa-plus text-xl mb-2"></i>
-                        </span>
-                        <h3>Add Brief</h3>
-                    </a>
-                    <a href="./repport.php">
-                        <span class="material-icons-sharp">
-                            <i class="fa-solid fa-chart-simple text-xl mb-2"></i>
-                        </span>
-                        <h3>Reports</h3>
                     </a>
                     <a href="./logout.php">
                         <span class="material-icons-sharp">
@@ -94,9 +75,15 @@
             $statment = $connect->prepare($selectBrief);
             $statment->execute();
             $data = $statment->fetchAll(PDO::FETCH_ASSOC);
-            
+            // select in table
+            $statement = $connect->prepare("SELECT titre, dateDeb, dateFin, etat 
+            FROM brief
+            INNER JOIN realise ON brief.idBrief = realise.idBrief");
+            $statement->execute();
+            //$History = $statment->fetchAll(PDO::FETCH_ASSOC);
             ?>
             <!-- Main Content -->
+
             <main>
                 <h1 style="font-weight: 800 !important; font-size: 1.8rem !important;">Analytics</h1>
                 <!-- Analyses -->
@@ -113,126 +100,72 @@
                     <div class="visits">
                         <div class="status px-5">
                             <div class="info">
-                                <h3>Interns</h3>
+                                <h3>Completed</h3>
                                 <?php echo "<h1>$totalApprenants</h1>" ?>
                             </div>
-                            <i class="fa-solid fa-user-group text-3xl pt-5"></i>
+                            <i class="fa-solid fa-file text-3xl pt-5"></i>
                         </div>
                     </div>
                     <div class="searches">
                         <div class="status px-5">
                             <div class="info">
-                                <h3>Teachers</h3>
+                                <h3>InCompleted</h3>
                                 <?php echo "<h1>$totalFormateur</h1>" ?>
                             </div>
-                            <i class="fa-solid fa-file-signature text-3xl pt-5"></i>
+                            <i class="fa-solid fa-file text-3xl pt-5"></i>
                         </div>
                     </div>
                 </div>
-                <section class="mt-5">
-                    <h2 class="mb-5" style="font-weight: 600; font-size:1.4rem;">Top Interns</h2>
-                    <div class="flex gap-3">
-                        <div class="flex justify-center gap-3 rounded-3xl w-1/4 cursor-pointer internCard" class="background-color : var(--color-background);">
-                            <div class="p-5">
-                                <div class="w-28 h-28 rounded-full overflow-hidden">
-                                    <img src="./images/11.png" alt="intern" style="width: 100%; height: 100%;">
-                                </div>
-                                <div class="w-full flex justify-center pt-3">
-                                    <h3>Hamza Garti</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex justify-center gap-3 rounded-3xl w-1/4 cursor-pointer internCard" class="background-color : var(--color-background);">
-                            <div class="p-5">
-                                <div class="w-28 h-28 rounded-full overflow-hidden">
-                                    <img src="./images/Housame.png" alt="intern">
-                                </div>
-                                <div class="w-full flex justify-center pt-3">
-                                    <h3>Brihi Houssame</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex justify-center gap-3 rounded-3xl w-1/4 cursor-pointer internCard" class="background-color : var(--color-background);">
-                            <div class="p-5">
-                                <div class="w-28 h-28 rounded-full overflow-hidden">
-                                    <img src="./images/22.png" alt="intern" style="width: 100%; height: 100%;">
-                                </div>
-                                <div class="w-full flex justify-center pt-3">
-                                    <h3>M Jamoun</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex justify-center gap-3 rounded-3xl w-1/4 cursor-pointer internCard" class="background-color : var(--color-background);">
-                            <div class="p-5">
-                                <div class="w-28 h-28 rounded-full overflow-hidden">
-                                    <img src="./images/achraaaf.JPG" alt="intern">
-                                </div>
-                                <div class="w-full flex justify-center pt-3">
-                                    <h3>Achraf el Baizagh</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
                 <!-- End of Analyses -->
-                <div class="new-users">
-                    <h2>Latest Briefs</h2>
-                    <div class="flex gap-5 mt-5">
-                        <?php 
-                            $idFormateur = $_SESSION['logedUserInfo']['idFormateur'];
-                            $latestBriefsData = latestBriefs($connect , $idFormateur);
-                            foreach($latestBriefsData as $row):
-                        ?>
-                        <div class="rounded-3xl p-5 flex flex-col items-center w-3/4 breiffCard" class="background-color : var(--color-background);">
-                            <div class="pb-5 pt-2 w-full text-center" style=" border-bottom: 1px solid #979797 !important">
-                                <h2><?php echo $row['titre']?></h2>
-                            </div>
-                            <div class="flex flex-col items-center mb-5">
-                                <?php 
-                                    $endDate = strtotime($row['dateFin']);
-                                    $startDate = strtotime($row['dateDeb']);
-                                    $currentDate =  time();
-                                    if($currentDate < $startDate):
-                                ?>
-                                    <p class="my-5 font-semibold">Status : <span class="text-orange-500">Upcoming</span></p>
-                                <?php 
-                                    elseif ($currentDate > $startDate || $currentDate == $startDate):
-                                ?>
-                                    <p class="my-5 font-semibold">Status : <span class="text-green-500">Started</span></p>
-                                <?php 
-                                    elseif ($endDate > $currentDate):
-                                ?>
-                                <p class="my-5 font-semibold">Status : <span class="text-red-500">Finished</span></p>
-                                <?php 
-                                    endif;
-                                ?>
-                                <div class="flex w-full gap-20 justify-between">
-                                     <div class="py-2 px-3 bg-blue-300 rounded-lg text-white ">Start at : <span>02-10-2024</span></div>
-                                     <div class="py-2 px-3 bg-blue-300 rounded-lg text-white ">End at : <span>02-10-2028</span></div>
-                                </div>
-                            </div>
-                            <div class="w-full flex justify-between pt-6 " style=" border-top: 1px solid #979797 !important">
-                                <div class="flex bg-blue-400 py-3 px-5 rounded-lg cursor-pointer gap-5 items-center">
-                                    <p class="text-white font-semibold">Attachement</p>
-                                    <i class="fa-solid fa-arrow-down text-white"></i>
-                                </div>
-                                <?php 
-                                    if($currentDate < $startDate):
-                                ?>  
-                                    <div class=" py-3 px-5 rounded-lg bg-red-400 cursor-pointer">
-                                        <a href="./deleteCards.php?id=<?php echo $row['idBrief']; ?>">
-                                            <i class="fa-solid fa-trash text-white"></i>
-                                        </a>
-                                    </div>
-                                <?php 
-                                    endif;
-                                ?>
-                            </div>
-                        </div>
+                <div class="mt-5 w-full">
+                    <h1 style="font-weight: 700 !important; font-size: 1.6rem !important;">History</h1>
+                    <div class="p-5 mt-5 bg-white rounded-3xl">
+                <div class="overflow-auto rounded-lg">
+                    <table class="table-auto w-full">
+                        <thead>
+                            <tr class="text-left bg-blue-300">
+                                <th class="p-2">Brief</th>
+                                <th class="p-2">Date Start</th>
+                                <th class="p-2">Date End</th>
+                                <th class="p-2">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         <?php
-                            endforeach;
+                        
+                        $History = $statement->fetchAll(PDO::FETCH_ASSOC);   foreach($History as $HistoryApp):
                         ?>
-                    </div>
+                            <tr>
+                                <td class="p-2"><?php echo $HistoryApp['titre']?></td>
+                                <td class="p-2"><?php echo $HistoryApp['dateDeb']?></td>
+                                <td class="p-2"><?php echo $HistoryApp['dateFin']?></td>
+                                <?php if($HistoryApp['etat'] == "In Progress") :?>
+                                    <td class="p-2 font-semibold inProgress">
+                                    <div class="py-1 px-2 bg-orange-400 text-white rounded-lg"><?php echo $HistoryApp['etat']?></div>
+                                <?php 
+                                    endif;
+                                ?>
+                                <?php if($HistoryApp['etat'] == "To-Do") :?>
+                                    <td class="p-2 font-semibold inProgress">
+                                    <div class="py-1 px-2 bg-blue-500 text-white rounded-lg"><?php echo $HistoryApp['etat']?></div>
+                                <?php 
+                                    endif;
+                                ?>
+                                <?php if($HistoryApp['etat'] == "Done") :?>
+                                    <td class="p-2 font-semibold inProgress">
+                                    <div class="py-1 px-2 bg-green-400 text-white rounded-lg"><?php echo $HistoryApp['etat']?></div>
+                                <?php 
+                                    endif;
+                                ?>
+                                </td>
+                            </tr>
+                        <?php 
+                        endforeach;
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
                 </div>
             </main>
             <!-- End of Main Content -->
@@ -262,17 +195,17 @@
                         <?php 
                             endif;
                         ?>
-                            <small class="text-muted">Admin</small>
+                            <small class="text-muted">Intern</small>
                         </div>
                         <div class="profile-photo">
-                            <img src="images/fatine.png">
+                            <img src="images/achraaaf.JPG">
                         </div>
                     </div>
                 </div>
                 <!-- End of Nav -->
                 <div class="user-profile">
                     <div class="logo">
-                        <img src="images/fatine.png">
+                        <img src="images/achraaaf.JPG">
                         <?php
                             $userInfo = isset($_SESSION['logedUserInfo']) ? $_SESSION['logedUserInfo'] : NULL;
                             if($userInfo):
@@ -281,7 +214,7 @@
                         <?php 
                             endif;
                         ?>
-                        <p>Formatrice chez SOLICODE</p>
+                        <p>Intern At SOLICODE</p>
                     </div>
                 </div>
                 <div class="reminders">
@@ -325,14 +258,6 @@
                             <span class="material-icons-sharp">
                                 more_vert
                             </span>
-                        </div>
-                    </div>
-                    <div class="notification add-reminder">
-                        <div>
-                            <span class="material-icons-sharp">
-                                add
-                            </span>
-                            <h3>Add Reminder</h3>
                         </div>
                     </div>
                 </div>

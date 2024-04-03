@@ -48,6 +48,7 @@ function latestBriefs($pdo , $idFormateur){
     else
         return false;
 }
+
 function add_Skill($DB, $id_brief, $id_skill)
 { try{
     $add_skills = "INSERT INTO concerne ( idBrief , idc)
@@ -61,4 +62,49 @@ function add_Skill($DB, $id_brief, $id_skill)
     } catch (PDOException $e) {
         echo "Error inserting into concerne table: " . $e->getMessage();
     }
+}
+
+function deleteCard($id ,$connect){
+    // Set the PDO error mode to exception
+    $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Prepare the SQL statement
+    $stmt = $connect->prepare("DELETE FROM brief WHERE idBrief = :id");
+    // Bind the parameter
+    $stmt->bindParam(':id', $id);
+    // Execute the statement
+    $stmt->execute();
+}
+
+function internCurrentBrief($idFormateur, $pdo, $currentDate){
+    $internCurrentBrief = $pdo->prepare("SELECT brief.* FROM brief INNER JOIN formateur ON brief.idFormateur = formateur.idFormateur 
+    WHERE formateur.idFormateur = :idFormateur AND (:currentDate > brief.dateDeb OR :currentDate = brief.dateDeb) ORDER BY idBrief DESC Limit 1;");
+    $internCurrentBrief->bindParam(':idFormateur', $idFormateur);
+    $internCurrentBrief->bindParam(':currentDate', $currentDate);
+
+    $internCurrentBrief->execute();
+    $internCurrentBrief = $internCurrentBrief->fetchAll(PDO::FETCH_ASSOC);
+    $currentReversedData = array_reverse($internCurrentBrief);
+    if ($currentReversedData)
+        return $currentReversedData;
+    else
+        return false;
+}
+
+function PassedtBrief($idFormateur, $pdo, $currentDate){
+    $internCurrentBrief = $pdo->prepare("SELECT brief.* FROM brief INNER JOIN formateur ON brief.idFormateur = formateur.idFormateur 
+    WHERE formateur.idFormateur = :idFormateur AND (:currentDate > brief.dateDeb OR :currentDate = brief.dateDeb) ORDER BY idBrief DESC Limit 2;");
+    $internCurrentBrief->bindParam(':idFormateur', $idFormateur);
+    $internCurrentBrief->bindParam(':currentDate', $currentDate);
+
+    $internCurrentBrief->execute();
+    $internCurrentBrief = $internCurrentBrief->fetchAll(PDO::FETCH_ASSOC);
+    $currentReversedData = array_reverse($internCurrentBrief);
+    if ($currentReversedData)
+        return $currentReversedData;
+    else
+        return false;
+}
+
+function UpdateFormateur($idFormateur, $pdo){
+
 }
