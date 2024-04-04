@@ -1,30 +1,13 @@
   <?php
-    session_start();
     include("connection.php");
 
     if (isset($_POST['search'])) {
         if (!empty($_POST['title'])) {
             // Prepare and execute the query for searching by title
-            $statement = $connect->prepare("SELECT titre FROM brief WHERE titre LIKE :search_input");
+            $statement = $connect->prepare("SELECT * FROM brief WHERE titre LIKE :search_input");
             $valueSearch = "%" . $_POST['title'] . "%";
             $statement->bindParam(":search_input", $valueSearch);
             $statement->execute();
-<<<<<<< HEAD
-          //  $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-        }
-     if (isset($_POST['startDate']) && isset($_POST['endDate']) && !empty($_POST['startDate']) && !empty($_POST['endDate'])) {
-        // Prepare and execute the query for filtering by date
-        $start_date = $_POST['startDate'];
-        $end_date = $_POST['endDate'];
-        $statement = $connect->prepare("SELECT * FROM brief WHERE idFormateur=:idFormateur AND  dateFin <= :end_date AND dateDeb>= :start_date");
-        $statement->bindParam(':idFormateur', $_SESSION['id_user']);
-        $statement->bindParam(':start_date', $start_date);
-       $statement->bindParam(':end_date', $end_date);
-        $statement->execute();
-        
-    } }
-    else {
-=======
         }
         if (isset($_POST['startDate']) && isset($_POST['endDate']) && !empty($_POST['startDate']) && !empty($_POST['endDate'])) {
             // Prepare and execute the query for filtering by date
@@ -37,7 +20,6 @@
             $statement->execute();
         }
     } else {
->>>>>>> omaima
         // Display all briefs
         $AllBrief = "SELECT * FROM brief WHERE idFormateur=:idFormateur";
         $statement = $connect->prepare($AllBrief);
@@ -46,12 +28,10 @@
     }
 
     // Fetch the results
-<<<<<<< HEAD
-   $Briefs = $statement->fetchAll(PDO::FETCH_ASSOC);
-=======
     $Briefs = $statement->fetchAll(PDO::FETCH_ASSOC);
->>>>>>> omaima
-
+     foreach($Briefs as $row){
+        
+     }
 
 
 
@@ -66,8 +46,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <script src="https://cdn.tailwindcss.com"></script>
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-      <link rel="stylesheet" href="style.css">
-      <link rel="stylesheet" href="style2.css">
+      <link rel="stylesheet" href="./CSS/style.css">
+      <link rel="stylesheet" href="./CSS/style2.css">
   </head>
 
   <body>
@@ -75,7 +55,7 @@
           <aside class="fixed left-16 w-64">
               <div class="toggle">
                   <div class="logo">
-                      <img src="images/logooooo.png">
+                      <img src="Files/loggo.png">
                       <h2 style="font-weight: 600; font-size:1.4rem;">SOLI-<span class="danger">BRIEFS</span></h2>
                   </div>
                   <div class="close" id="close-btn">
@@ -85,7 +65,7 @@
                   </div>
               </div>
               <div class="sidebar pt-3">
-                  <a href="./index.php" class="m-0">
+                  <a href="./admin.php" class="m-0">
                       <span class="material-icons-sharp">
                           <i class="fa-solid fa-chart-pie text-xl mb-2"></i>
                       </span>
@@ -97,11 +77,7 @@
                       </span>
                       <h3>Profil</h3>
                   </a>
-<<<<<<< HEAD
-                  <a href="#" class="active">
-=======
                   <a href="./breifs.php" class="active">
->>>>>>> omaima
                       <span class="material-icons-sharp">
                           <i class="fa-regular fa-file text-2xl mb-2"></i>
                       </span>
@@ -113,21 +89,13 @@
                       </span>
                       <h3>Add Brief</h3>
                   </a>
-<<<<<<< HEAD
-                  <a href="#">
-=======
                   <a href="./repport.php">
->>>>>>> omaima
                       <span class="material-icons-sharp">
                           <i class="fa-solid fa-chart-simple text-xl mb-2"></i>
                       </span>
                       <h3>Reports</h3>
                   </a>
-<<<<<<< HEAD
-                  <a href="#">
-=======
                   <a href="./logout">
->>>>>>> omaima
                       <span class="material-icons-sharp">
                           logout
                       </span>
@@ -162,42 +130,45 @@
                                   <h2 style="font-weight: 600; font-size:1.4rem;"><?php echo $brief['titre'] ?></h2>
                               </div>
                               <div class="flex flex-col items-center mb-5">
-                                  <p class="my-5 font-semibold">It will end in :</p>
-                                  <ul class='flex gap-3'>
-                                      <li>
-                                          <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                              <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">02</div> :
-                                          </div>
-                                          <p class="font-semibold ml-2">Days</p>
-                                      </li>
-                                      <li>
-                                          <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                              <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">05</div> :
-                                          </div>
-                                          <p class="font-semibold ml-2">Hours</p>
-                                      </li>
-                                      <li>
-                                          <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                              <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">56</div> :
-                                          </div>
-                                          <p class="font-semibold ml-4">Min</p>
-                                      </li>
-                                      <li class="flex flex-col items-center">
-                                          <div class="flex items-center gap-3 text-3xl text-slate-800">
-                                              <div class="bg-blue-300 text-white p-3 rounded-lg text-2xl ">26</div>
-                                          </div>
-                                          <p class="font-semibold">Sec</p>
-                                      </li>
-                                  </ul>
+                                  <?php
+                                    $endDate = isset($brief['dateFin']) ? strtotime($brief['dateFin']) : false;
+                                    $startDate =isset($brief['dateDeb']) ? strtotime($brief['dateDeb']) : false;
+                                    $currentDate =  time();
+                                    if ($currentDate < $startDate) :
+                                    ?>
+                                      <p class="my-5 font-semibold">Status : <span class="text-orange-500">Upcoming</span></p>
+                                  <?php
+                                    elseif ($currentDate > $startDate || $currentDate == $startDate) :
+                                    ?>
+                                      <p class="my-5 font-semibold">Status : <span class="text-green-500">Started</span></p>
+                                  <?php
+                                    elseif ($endDate > $currentDate) :
+                                    ?>
+                                      <p class="my-5 font-semibold">Status : <span class="text-red-500">Finished</span></p>
+                                  <?php
+                                    endif;
+                                    ?>
+                                  <div class="flex w-full gap-20 justify-between">
+                                      <div class="py-2 px-2 bg-blue-300 rounded-lg text-white ">Start at : <span><?php echo $brief['dateDeb']?></span></div>
+                                      <div class="py-2 px-2 bg-blue-300 rounded-lg text-white ">End at : <span><?php echo $brief['dateFin'] ?></span></div>
+                                  </div>
                               </div>
                               <div class="w-full flex justify-between pt-6 " style=" border-top: 1px solid #979797 !important">
                                   <div class="flex bg-blue-400 py-3 px-5 rounded-lg cursor-pointer gap-5 items-center">
                                       <p class="text-white font-semibold">Attachement</p>
                                       <i class="fa-solid fa-arrow-down text-white"></i>
                                   </div>
-                                  <div class=" py-3 px-5 rounded-lg bg-red-400 cursor-pointer">
-                                      <i class="fa-solid fa-trash text-white"></i>
-                                  </div>
+                                  <?php
+                                    if ($currentDate < $startDate) :
+                                    ?>
+                                      <div class=" py-3 px-5 rounded-lg bg-red-400 cursor-pointer">
+                                          <a href="./deleteCards.php?id=<?php echo $brief['idBrief']; ?>">
+                                              <i class="fa-solid fa-trash text-white"></i>
+                                          </a>
+                                      </div>
+                                  <?php
+                                    endif;
+                                    ?>
                               </div>
                           </div>
                       <?php endforeach; ?>
@@ -223,11 +194,18 @@
 
                   <div class="profile">
                       <div class="info">
-                          <p>Hey, <b>Fatine</b></p>
-                          <small class="text-muted">Admin</small>
+                          <?php
+                            $userInfo = isset($_SESSION['logedUserInfo']) ? $_SESSION['logedUserInfo'] : NULL;
+                            if ($userInfo) :
+                            ?>
+                              <p>Hey, <b><?php echo $userInfo['prenom'] ?></b></p>
+                          <?php
+                            endif;
+                            ?>
+                          <small class="text-muted">Teacher</small>
                       </div>
                       <div class="profile-photo">
-                          <img src="images/fatine.png">
+                          <img src="Files/fatine.png">
                       </div>
                   </div>
 
@@ -236,9 +214,17 @@
 
               <div class="user-profile">
                   <div class="logo">
-                      <img src="images/fatine.png">
-                      <h2 style="font-weight: 600; font-size:1.4rem;">Fatin Chebab</h2>
-                      <p>Formatrice chez SOLICODE</p>
+                      <img src="Files/fatine.png">
+                      <?php
+                        $userInfo = isset($_SESSION['logedUserInfo']) ? $_SESSION['logedUserInfo'] : NULL;
+                        if ($userInfo) :
+                        ?>
+                          <h2 style="font-weight: 600; font-size:1.4rem;"><?php echo $userInfo['nom'] . ' ' . $userInfo['prenom'] ?></h2>
+                      <?php
+                        endif;
+                        ?>
+                      <p>Teacher at solicode</p>
+
                   </div>
               </div>
 

@@ -1,45 +1,10 @@
-<?php
-
-include('connection.php');
-
-
-if (isset($_POST['search'])) {
-    if (!empty($_POST['title'])) {
-        $selectedTitle = $_POST['title'];
-        // Prepare and execute the query for searching by title
-        $statement = $connect->prepare("SELECT nom ,prenom,groupe,titre,url,etat FROM apprenant 
-                                        INNER JOIN realise ON apprenant.idApprenant = realise.idApprenant 
-                                        INNER JOIN brief ON brief.idBrief = realise.idBrief  
-                                        WHERE titre = :selected_title");
-        $statement->bindParam(":selected_title", $selectedTitle);
-        $statement->execute();
-    }
-} else {
-
-    $statement = $connect->prepare("SELECT nom, prenom, groupe, titre, url, etat 
-    FROM apprenant 
-    INNER JOIN realise ON apprenant.idApprenant = realise.idApprenant 
-    INNER JOIN brief ON brief.idBrief = realise.idBrief");
-    $statement->execute();
-}
-//Fetch the statement
-$report = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-//select briefs for options
-$stmt = $connect->prepare("SELECT titre FROM brief");
-$stmt->execute();
-$briefs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-
-
-
+<?php 
+    session_start();
+    $userInfo = isset($_SESSION['logedUserInfo']) ? $_SESSION['logedUserInfo'] : NULL;
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,7 +14,6 @@ $briefs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="./CSS/style2.css">
     <link rel="stylesheet" href="./CSS/report.css">
 </head>
-
 <body>
     <div class="container relative flex justify-center" style="width: 95%; margin: 0 auto; position:relative; ">
         <aside class="fixed left-16 w-64">
@@ -71,13 +35,13 @@ $briefs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="#">
+                <a href="#" class="active">
                     <span class="material-icons-sharp">
                         <i class="fa-solid fa-user text-xl mb-2"></i>
                     </span>
                     <h3>Profil</h3>
                 </a>
-                <a href="./breifs.php">
+                <a href="#" >
                     <span class="material-icons-sharp">
                         <i class="fa-regular fa-file text-2xl mb-2"></i>
                     </span>
@@ -89,7 +53,7 @@ $briefs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </span>
                     <h3>Add Brief</h3>
                 </a>
-                <a href="./repport.php" class="active">
+                <a href="./repport.php" class="">
                     <span class="material-icons-sharp">
                         <i class="fa-solid fa-chart-simple text-xl mb-2"></i>
                     </span>
@@ -104,46 +68,30 @@ $briefs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </aside>
         <main class="w-1/2 mx-auto mb-10">
-            <h1 style="font-weight: 800 !important; font-size: 1.8rem !important;">Repport</h1>
-            <form class="rounded-3xl p-8 flex gap-5 mt-5 internCard" style="background-color: var(--color-white);" method="POST">
-                <select name="title" id="title" class="py-2 px-3 text-slate-700 font-semibold rounded-lg border-2 border-blue-300 focus:outline-none w-8/12">
-                    <?php foreach ($briefs as $brief) {
-                        echo "<option value='" . htmlspecialchars($brief['titre']) . "'>{$brief['titre']}</option>";
-                    }
-
-                    ?>
-                </select>
-                <input type="submit" value="Search" class="cursor-pointer bg-blue-400 rounded-lg py-2 px-3 text-white font-semibold w-4/12" name="search">
-            </form>
-            <div class="p-5 mt-5 bg-white rounded-3xl">
-                <div class="overflow-auto rounded-lg">
-                    <table class="table-auto w-full">
-                        <thead>
-                            <tr class="text-left bg-blue-300">
-                                <th class="p-2">Last Name</th>
-                                <th class="p-2">First Name</th>
-                                <th class="p-2">Group</th>
-                                <th class="p-2">Brief</th>
-                                <th class="p-2">URL</th>
-                                <th class="p-2">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($report as $rep) : ?>
-                                <tr>
-                                    <td class="p-2"> <?php echo $rep['nom']; ?></td>
-                                    <td class="p-2"> <?php echo $rep['prenom']; ?></td>
-                                    <td class="p-2"><?php echo $rep['groupe']; ?></td>
-                                    <td class="p-2"><?php echo $rep['titre']; ?></td>
-                                    <td class="p-2"><?php echo $rep['url']; ?></td>
-                                    <td class="p-2 font-semibold inProgress"><?php echo $rep['etat']; ?></td>
-                                </tr>
-                            <?php endforeach ?>
-
-                        </tbody>
-                    </table>
+           <h1 style="font-weight: 800 !important; font-size: 1.8rem !important;">Profil</h1>
+           <form class="rounded-3xl p-8 flex flex-col gap-5 mt-5 internCard" style="background-color: var(--color-white);">
+                <h2>Info</h2>
+                <div class="flex flex-col gap-3">
+                    <div class="flex justify-between py-2 px-3 rounded-lg border-2 border-blue-300 bg-white">
+                        <p class="border-r-2 border-blue-300 pr-5 pl-2 text-slate-700 font-semibold">Nom</p>
+                        <p class="focus:outline-none text-slate-700 font-semibold bg-white"><?php  echo $userInfo['prenom'] ?></P>
+                    </div>
+                    <div class="flex justify-between py-2 px-3 rounded-lg border-2 border-blue-300 bg-white">
+                        <p class="border-r-2 border-blue-300 pr-5 pl-2 text-slate-700 font-semibold">Prenom</p>
+                        <p class="focus:outline-none text-slate-700 font-semibold bg-white"><?php  echo $userInfo['nom'] ?></P>
+                    </div>
+                    <div class="flex justify-between py-2 px-3 rounded-lg border-2 border-blue-300 bg-white">
+                        <p class="border-r-2 border-blue-300 pr-5 pl-2 text-slate-700 font-semibold">Email</p>
+                        <p class="focus:outline-none text-slate-700 font-semibold bg-white"><?php  echo $userInfo['email'] ?></P>
+                    </div>
                 </div>
-            </div>
+                <h2>Update Info</h2>
+                <input type="text" name="Nom" placeholder="Nom" class="py-2 px-3 text-slate-700 font-semibold rounded-lg border-2 border-blue-300 focus:outline-none">
+                <input type="text" name="Prenom" placeholder="Prenom" class="py-2 px-3 text-slate-700 font-semibold rounded-lg border-2 border-blue-300 focus:outline-none">
+                <input type="email" name="email" placeholder="Email" class="py-2 px-3 text-slate-700 font-semibold rounded-lg border-2 border-blue-300 focus:outline-none">
+                <input type="password" name="password" placeholder="Password" class="py-2 px-3 text-slate-700 font-semibold rounded-lg border-2 border-blue-300 focus:outline-none">
+                <input type="submit" value="Update" class="cursor-pointer bg-blue-400 rounded-lg py-2 px-3 text-white font-semibold">
+            </form>
         </main>
         <div class="right-section w-72 fixed right-16">
             <div class="nav">
@@ -167,7 +115,7 @@ $briefs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <small class="text-muted">Admin</small>
                     </div>
                     <div class="profile-photo">
-                        <img src="Files/fatine.png">
+                        <img src="images/fatine.png">
                     </div>
                 </div>
 
@@ -176,7 +124,7 @@ $briefs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="user-profile">
                 <div class="logo">
-                    <img src="Files/fatine.png">
+                    <img src="images/fatine.png">
                     <h2 style="font-weight: 600; font-size:1.4rem;">Fatin Chebab</h2>
                     <p>Formatrice chez SOLICODE</p>
                 </div>
@@ -242,7 +190,6 @@ $briefs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 </body>
-<script src="./index.js"></script>
-<script src="https://kit.fontawesome.com/4938da1e0a.js" crossorigin="anonymous"></script>
-
+    <script src="./index.js"></script>
+    <script src="https://kit.fontawesome.com/4938da1e0a.js" crossorigin="anonymous"></script>
 </html>

@@ -47,6 +47,7 @@ function latestBriefs($pdo , $idFormateur){
     else
         return false;
 }
+
 function add_Skill($DB, $id_brief, $id_skill)
 {
         $add_skills = "INSERT INTO concerne ( idBrief , idc)
@@ -55,9 +56,58 @@ function add_Skill($DB, $id_brief, $id_skill)
         $stat_add_s_brief->bindParam(':id_brief', $id_brief);
         $stat_add_s_brief->bindParam(':id_skill', $id_skill);
 
-        $stat_add_s_brief->execute();
-
+    $stat_add_s_brief->execute();
+   
 }
+
+function deleteCard($id ,$connect){
+    // Set the PDO error mode to exception
+    $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // delete Concerne
+    $stmt_concerne = $connect->prepare("DELETE FROM concerne WHERE idBrief = :id");
+    $stmt_concerne->bindParam(':id', $id);
+    $stmt_concerne->execute();
+    //delete Realise 
+    $stmt_realise = $connect->prepare("DELETE FROM realise WHERE idBrief = :id");
+    $stmt_realise->bindParam(':id', $id);
+    $stmt_realise->execute();
+    //delete Brief
+    $stmt_brief = $connect->prepare("DELETE FROM brief WHERE idBrief = :id");
+    $stmt_brief->bindParam(':id', $id);
+    $stmt_brief->execute();
+}
+
+function internCurrentBrief($idFormateur, $pdo, $currentDate){
+    $internCurrentBrief = $pdo->prepare("SELECT brief.* FROM brief INNER JOIN formateur ON brief.idFormateur = formateur.idFormateur 
+    WHERE formateur.idFormateur = :idFormateur AND (:currentDate > brief.dateDeb OR :currentDate = brief.dateDeb) ORDER BY idBrief DESC Limit 1;");
+    $internCurrentBrief->bindParam(':idFormateur', $idFormateur);
+    $internCurrentBrief->bindParam(':currentDate', $currentDate);
+
+    $internCurrentBrief->execute();
+    $internCurrentBrief = $internCurrentBrief->fetchAll(PDO::FETCH_ASSOC);
+    $currentReversedData = array_reverse($internCurrentBrief);
+    if ($currentReversedData)
+        return $currentReversedData;
+    else
+        return false;
+}
+
+function PassedtBrief($idFormateur, $pdo, $currentDate){
+    $internCurrentBrief = $pdo->prepare("SELECT brief.* FROM brief INNER JOIN formateur ON brief.idFormateur = formateur.idFormateur 
+    WHERE formateur.idFormateur = :idFormateur AND (:currentDate > brief.dateDeb OR :currentDate = brief.dateDeb) ORDER BY idBrief DESC Limit 2;");
+    $internCurrentBrief->bindParam(':idFormateur', $idFormateur);
+    $internCurrentBrief->bindParam(':currentDate', $currentDate);
+
+    $internCurrentBrief->execute();
+    $internCurrentBrief = $internCurrentBrief->fetchAll(PDO::FETCH_ASSOC);
+    $currentReversedData = array_reverse($internCurrentBrief);
+    if ($currentReversedData)
+        return $currentReversedData;
+    else
+        return false;
+}
+
+ 
 
 function repport($pdo)
 {

@@ -12,16 +12,14 @@ if (isset($_POST['confirmer'])) {
             $_SESSION['id_user'] = $FormateurData['idFormateur'];
             $_SESSION['logedUserInfo'] = $FormateurData; 
             
-            // echo $email;
-            // echo $password;
-            // print_r($FormateurData);
             header('location: admin.php');
             exit;
         }elseif($idA !== false) {
             $_SESSION['id_user'] = $idA['idApprenant'];
+            $_SESSION['logedUserInfo'] = $idA; 
         
-            // header('location: apprenant.php');
-            // exit;
+            header('location: internDashboard.php');
+            exit;
         }else{
             echo "<span class='error'>email or password is incorrect</span>";
         }
